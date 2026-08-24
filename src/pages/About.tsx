@@ -388,7 +388,7 @@ export function About() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-clip selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
       {/* Global Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-[#1E50FF] origin-left z-50"
