@@ -145,100 +145,111 @@ export function FoundersSection() {
         </div>
       </div>
 
-      {/* Hero Card */}
+      {/* Hero Card / Container */}
       <motion.div 
         layout
         transition={{ type: "spring", stiffness: 260, damping: 25 }}
-        className="relative w-full max-w-md mx-auto aspect-[4/5] rounded-[2rem] overflow-hidden bg-slate-900 shadow-[0_20px_40px_rgba(30,80,255,0.12)] flex flex-col"
+        className={`relative w-full mx-auto rounded-[2rem] overflow-hidden bg-[#020617] border border-slate-800/80 shadow-[0_25px_60px_-15px_rgba(30,80,255,0.25)] flex flex-col transition-all duration-500 ${
+          activeId === 'team' 
+            ? 'max-w-4xl aspect-[4/3] sm:aspect-[16/9] md:aspect-[21/9]' 
+            : 'max-w-4xl md:h-[380px] md:flex-row'
+        }`}
       >
-        {/* Image Section */}
-        <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="popLayout">
-            <motion.img 
-              key={activeId}
-              src={activeId === 'team' ? TEAM_OVERVIEW.groupImage : activeFounder?.individualImage}
-              alt={activeId === 'team' ? 'Equipe Profit' : activeFounder?.name}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="w-full h-full object-cover object-center"
-            />
-          </AnimatePresence>
-          {/* Base gradient layer to ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent" />
-        </div>
-
-        {/* Back Button (Only visible when a founder is selected) */}
-        <AnimatePresence>
-          {activeId !== 'team' && (
-            <motion.button
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              onClick={() => setActiveId('team')}
-              className="absolute top-6 left-6 z-20 flex items-center gap-2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white text-sm font-bold px-4 py-2 rounded-full transition-colors border border-white/10"
+        <AnimatePresence mode="wait">
+          {activeId === 'team' ? (
+            <motion.div
+              key="team-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 w-full h-full flex flex-col"
             >
-              <ArrowLeft className="w-4 h-4" />
-              Voltar
-            </motion.button>
-          )}
-        </AnimatePresence>
-
-        {/* Footer Content */}
-        <motion.div 
-          layout
-          className="mt-auto relative z-10 w-full p-6 sm:p-8"
-        >
-          <AnimatePresence mode="wait">
-            {activeId === 'team' ? (
-              <motion.div
-                key="team-text"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="text-center pb-2"
-              >
+              {/* Image Section */}
+              <div className="absolute inset-0 z-0">
+                <img 
+                  src={TEAM_OVERVIEW.groupImage}
+                  alt="Equipe Profit"
+                  className="w-full h-full object-cover object-center"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-[#020617]/50 to-transparent" />
+              </div>
+              
+              {/* Footer Content */}
+              <div className="mt-auto relative z-10 w-full p-6 sm:p-8 pb-6 sm:pb-8 text-center">
                 <h3 className="text-3xl font-black text-white mb-3">
                   {TEAM_OVERVIEW.title}
                 </h3>
                 <p className="text-slate-300 text-sm leading-relaxed max-w-sm mx-auto">
                   "{TEAM_OVERVIEW.missionQuote}"
                 </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key={`founder-${activeId}`}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.4 }}
-                className="text-left"
-              >
-                <div className="mb-4">
-                  <span className="text-white font-bold text-xs uppercase tracking-widest bg-[#1E50FF] px-3 py-1.5 rounded-full">
-                    {activeFounder?.role}
-                  </span>
-                </div>
-                <h3 className="text-3xl font-black text-white mb-4">
-                  {activeFounder?.name}
-                </h3>
-                <p className="text-slate-300 text-sm leading-relaxed mb-6">
-                  {activeFounder?.fullBio}
-                </p>
-                <div className="flex items-center gap-3">
-                  <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#1E50FF] flex items-center justify-center text-white transition-colors backdrop-blur-sm border border-white/10">
-                    <LinkedinIcon className="w-4 h-4" />
-                  </a>
-                  <a href={activeFounder?.email} className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#1E50FF] flex items-center justify-center text-white transition-colors backdrop-blur-sm border border-white/10">
-                    <Mail className="w-4 h-4" />
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </motion.div>
+              </div>
+            </motion.div>
+          ) : (
+            <motion.div
+              key="founder-view"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="w-full h-full flex flex-col md:flex-row flex-1"
+            >
+              {/* Left: Founder Image */}
+              <div className="relative w-full md:w-5/12 aspect-[4/3] sm:aspect-[16/9] md:aspect-auto md:h-full shrink-0 overflow-hidden bg-slate-900">
+                <motion.img
+                  key={`img-${activeFounder?.id}`}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.4 }}
+                  src={activeFounder?.individualImage}
+                  alt={activeFounder?.name}
+                  className="absolute inset-0 w-full h-full object-cover object-center"
+                />
+                {/* Mobile bottom fade to blend with text area */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-transparent to-transparent md:hidden" />
+                
+                {/* Back Button */}
+                <button
+                  onClick={() => setActiveId('team')}
+                  className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 bg-black/40 hover:bg-[#1E50FF] backdrop-blur-md text-white text-sm font-bold px-4 py-2 rounded-full transition-all duration-300 border border-white/10 hover:border-transparent shadow-lg"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                  Voltar
+                </button>
+              </div>
+
+              {/* Right: Founder Details */}
+              <div className="w-full md:w-7/12 p-6 sm:p-8 md:p-8 flex flex-col justify-center relative z-10 bg-[#020617]">
+                 <motion.div
+                    key={`founder-details-${activeId}`}
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                 >
+                    <div className="mb-3">
+                      <span className="text-white font-bold text-xs uppercase tracking-widest bg-[#1E50FF] px-3.5 py-1 rounded-full inline-block shadow-[0_4px_14px_rgba(30,80,255,0.45)]">
+                        {activeFounder?.role}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl md:text-3xl font-black text-white mb-3">
+                      {activeFounder?.name}
+                    </h3>
+                    <p className="text-slate-300 text-sm md:text-sm leading-relaxed mb-6">
+                      {activeFounder?.fullBio}
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#1E50FF] flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-transparent hover:scale-110 shadow-md">
+                        <LinkedinIcon className="w-4 h-4" />
+                      </a>
+                      <a href={activeFounder?.email} className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#1E50FF] flex items-center justify-center text-white transition-all duration-300 backdrop-blur-sm border border-white/10 hover:border-transparent hover:scale-110 shadow-md">
+                        <Mail className="w-4 h-4" />
+                      </a>
+                    </div>
+                 </motion.div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );
