@@ -1,33 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useSpring, useInView, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Mail, Sparkles, Plus, Minus } from 'lucide-react';
-import { Expandable, ExpandableContent, useExpandable } from '../components/expandable';
+import { ArrowRight, Sparkles } from 'lucide-react';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer } from '../components/layout/Footer';
 import { ChatWidget } from '../components/features/ChatWidget';
-
+import { FoundersSection } from '../components/sections/FoundersSection';
 import robotIdea from '../assets/robot/robot_ideia.png';
 import robotNotebook from '../assets/robot/robot_notebook.png';
 import robotChat from '../assets/robot/robot_chat.png';
 import robotWaving from '../assets/robot/robot_acenando (1).png';
 
-function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>
-  );
-}
+
 
 const TIMELINE_STEPS = [
   {
@@ -291,104 +274,12 @@ function TimelineSection() {
   );
 }
 
-const FOUNDERS = [
-  {
-    name: 'Felipe Terossi',
-    role: 'Sócio & Fundador',
-    bio: 'Estrategista de negócios e focado em resolver problemas operacionais crônicos. Acredita que a tecnologia deve ser invisível, enquanto o resultado é o que realmente brilha no final do mês.',
-    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    mail: '#'
-  },
-  {
-    name: 'Adriano Kenzo',
-    role: 'Sócio & Fundador',
-    bio: 'Engenheiro de Software apaixonado por criar arquiteturas escaláveis. Lidera a inteligência técnica da Profit garantindo entregas robustas e sob medida.',
-    image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    mail: '#'
-  },
-  {
-    name: 'Gabriel Felix',
-    role: 'Sócio & Fundador',
-    bio: 'Especialista em design de produto e experiência do usuário. Focado obsessivamente em transformar sistemas complexos em interfaces simples que as pessoas amam usar.',
-    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    mail: '#'
-  },
-  {
-    name: 'Arthur Miele',
-    role: 'Sócio & Fundador',
-    bio: 'Analista de dados e estrategista em infraestrutura. Seu objetivo é estruturar o oceano de dados das PMEs em relatórios pragmáticos e inteligentes.',
-    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    mail: '#'
-  },
-  {
-    name: 'Hyago Sampaio',
-    role: 'Sócio & Fundador',
-    bio: 'Engenheiro de automação, conectando APIs e eliminando tarefas repetitivas. Garante que os processos rodem no piloto automático com precisão.',
-    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    mail: '#'
-  }
-];
-
-function FounderCardInner({ founder }: { founder: typeof FOUNDERS[0] }) {
-  const { isExpanded, toggleExpand } = useExpandable();
-  
-  return (
-    <div 
-      className="group h-full bg-white/60 backdrop-blur-md border border-slate-100 hover:border-[#1E50FF]/30 rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgba(30,80,255,0.08)] transition-all duration-300 cursor-pointer flex flex-col"
-      onClick={toggleExpand}
-    >
-      <div className="aspect-[4/5] w-full overflow-hidden rounded-2xl mb-6 relative shrink-0">
-        <div className="absolute inset-0 bg-[#1E50FF]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 mix-blend-overlay" />
-        <img 
-          src={founder.image} 
-          alt={founder.name} 
-          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)]"
-        />
-      </div>
-      
-      <div className="flex flex-col flex-1">
-        <div className="flex justify-between items-start">
-          <div>
-            <span className="text-xs font-bold text-[#1E50FF] tracking-widest uppercase">{founder.role}</span>
-            <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-1">{founder.name}</h3>
-          </div>
-          <button className="text-slate-400 hover:text-[#1E50FF] transition-colors p-2 bg-slate-50 hover:bg-blue-50 rounded-full shrink-0 ml-2">
-            {isExpanded ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
-          </button>
-        </div>
-
-        <ExpandableContent preset="slide-up">
-          <div className="pt-4 flex flex-col">
-            <p className="text-slate-500 text-sm leading-relaxed mb-6">
-              {founder.bio}
-            </p>
-
-            <div className="flex items-center gap-4 pt-4 border-t border-slate-100 mt-auto" onClick={(e) => e.stopPropagation()}>
-              <a href={founder.linkedin} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1E50FF] hover:text-white transition-colors">
-                <LinkedinIcon className="w-4 h-4" />
-              </a>
-              <a href={founder.mail} className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 hover:bg-[#1E50FF] hover:text-white transition-colors">
-                <Mail className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </ExpandableContent>
-      </div>
-    </div>
-  );
-}
-
 export function About() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
+    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-clip selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
       {/* Global Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-[3px] bg-[#1E50FF] origin-left z-50"
@@ -443,33 +334,8 @@ export function About() {
           {/* The Story of Profit (Interactive 3D Depth Timeline) */}
           <TimelineSection />
 
-          {/* Founders Grid */}
-          <div className="text-center mb-16">
-             <motion.h2 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="text-3xl md:text-5xl font-black text-slate-900"
-              >
-                Quem faz acontecer
-              </motion.h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-start">
-            {FOUNDERS.map((founder, index) => (
-              <motion.div
-                key={founder.name}
-                initial={{ opacity: 0, y: 32 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
-                className="h-full"
-              >
-                <Expandable>
-                  <FounderCardInner founder={founder} />
-                </Expandable>
-              </motion.div>
-            ))}
-          </div>
-
+          {/* Founders Animated Section */}
+          <FoundersSection />
           {/* Call to action at the bottom */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
