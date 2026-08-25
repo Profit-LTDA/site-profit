@@ -6,7 +6,7 @@ import logoIcon from '../../assets/logo/profit_Plogo.png';
 export function Navbar() {
   const navLinks = [
     { label: 'Início', to: '/' },
-    { label: 'Soluções', to: '/#what-we-do' },
+    { label: 'Soluções', to: '/solucoes' },
     { label: 'Sobre nós', to: '/sobre' },
     { label: 'Contato', to: '/#contact' },
   ];

@@ -1,98 +1,114 @@
-import { useParams, Link } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowLeft, Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, CircleDot, MoveRight } from 'lucide-react';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer } from '../components/layout/Footer';
 import { ChatWidget } from '../components/features/ChatWidget';
-
-// Mock data to simulate fetching a case by slug
-const CASES_DB: Record<string, any> = {
-  'case-logistica': {
-    title: 'Automação Logística',
-    client: 'Transportadora XYZ',
-    image: 'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80',
-    content: 'A Transportadora XYZ enfrentava problemas gravíssimos de roteirização que consumiam dezenas de horas semanais de uma equipe inteira. Através de um algoritmo proprietário desenvolvido sob medida, conseguimos reduzir o tempo de planejamento em 70%, gerando uma economia de mais de R$ 50.000 mensais em combustível e horas extras.',
-    results: ['70% menos tempo de planejamento', 'R$ 50k economia mensal', 'Integração 100% com ERP']
-  },
-  'case-fintech': {
-    title: 'Dashboard Financeiro',
-    client: 'Fintech Alpha',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80',
-    content: 'A Fintech Alpha precisava consolidar métricas de 5 plataformas diferentes. Desenvolvemos um pipeline de dados e um dashboard em tempo real, permitindo aos gestores tomar decisões baseadas em dados precisos e atualizados no segundo.',
-    results: ['Métricas em Tempo Real', '5 APIs integradas', 'Aumento de 15% na margem']
-  },
-  'case-clinica': {
-    title: 'Gestão de Pacientes',
-    client: 'Clínica Bem Estar',
-    image: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&q=80',
-    content: 'A taxa de absenteísmo (faltas) na clínica estava altíssima devido à falta de acompanhamento. Criamos um sistema de agendamento que interage diretamente via WhatsApp para confirmar horários automaticamente.',
-    results: ['40% menos faltas', 'Agendamento 24/7', 'Pacientes mais satisfeitos']
-  }
-};
+import { CASES, getCaseBySlug } from '../data/cases';
 
 export function CaseStudy() {
   const { slug } = useParams();
-  const caseData = CASES_DB[slug || ''] || CASES_DB['case-logistica']; // Fallback
-  
+  const caseData = getCaseBySlug(slug);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  useEffect(() => {
+    if (caseData) document.title = `${caseData.sector} — Case demonstrativo | Profit`;
+    return () => { document.title = 'Profit'; };
+  }, [caseData]);
+
+  if (!caseData) return <Navigate to="/#cases" replace />;
+  const currentIndex = CASES.findIndex((item) => item.slug === caseData.slug);
+  const nextCase = CASES[(currentIndex + 1) % CASES.length];
 
   return (
     <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
       <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-[#1E50FF] origin-left z-50" style={{ scaleX }} />
       <Navbar />
 
-      <main className="pt-32 pb-24 relative">
-        {/* Subtle grid background */}
-        <div className="absolute inset-0 opacity-[0.4] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#1E50FF] rounded-full blur-[150px] opacity-[0.05] pointer-events-none" />
-
-        <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
-          
-          <Link to="/#cases" className="inline-flex items-center gap-2 text-slate-400 hover:text-[#1E50FF] font-medium text-sm transition-colors mb-12">
-            <ArrowLeft className="w-4 h-4" /> Voltar para o Início
-          </Link>
-
-          <div className="max-w-3xl mb-12">
-            <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="inline-flex items-center gap-2 bg-blue-50 text-[#1E50FF] rounded-full px-4 py-1.5 mb-6 text-xs font-bold uppercase tracking-wider">
-              <Sparkles className="w-3 h-3" /> {caseData.client}
-            </motion.div>
-            <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-6">
-              {caseData.title}
-            </motion.h1>
-          </div>
-
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="w-full aspect-[21/9] rounded-[2rem] overflow-hidden mb-16 shadow-2xl">
-            <img src={caseData.image} alt={caseData.title} className="w-full h-full object-cover" />
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20 max-w-5xl">
-            <div className="md:col-span-2">
-              <h2 className="text-2xl font-bold text-slate-900 mb-6">O Desafio & Solução</h2>
-              <p className="text-slate-500 leading-relaxed text-lg mb-6">
-                {caseData.content}
-              </p>
+      <main>
+        <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-28 overflow-hidden">
+          <div className="absolute inset-0 opacity-40 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
+          <div className="absolute -top-48 right-[-10%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-20 pointer-events-none" style={{ backgroundColor: caseData.accent }} />
+          <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 relative">
+            <Link to="/#cases" className="inline-flex items-center gap-2 text-slate-500 hover:text-[#1E50FF] text-sm font-semibold transition-colors mb-14"><ArrowLeft className="w-4 h-4" /> Todos os cases</Link>
+            <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-20 items-end">
+              <div>
+                <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} className="flex flex-wrap items-center gap-3 text-xs font-bold uppercase tracking-[0.18em] mb-7" style={{ color: caseData.accent }}>
+                  <span>Case demonstrativo</span><span className="w-1 h-1 rounded-full bg-current" /><span className="text-slate-400">{caseData.sector}</span>
+                </motion.div>
+                <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }} className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[1.02]">{caseData.title}</motion.h1>
+              </div>
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.18 }}>
+                <p className="text-lg text-slate-500 leading-relaxed">{caseData.summary}</p>
+                <div className="mt-8 flex items-center gap-3 text-xs text-slate-400"><CircleDot className="w-4 h-4" style={{ color: caseData.accent }} /> Números projetados para fins de demonstração</div>
+              </motion.div>
             </div>
-            
-            <div>
-              <div className="bg-slate-50 border border-slate-100 rounded-3xl p-8">
-                <h3 className="text-sm font-bold text-[#1E50FF] uppercase tracking-widest mb-6">Resultados</h3>
-                <ul className="flex flex-col gap-4">
-                  {caseData.results.map((res: string, i: number) => (
-                    <li key={i} className="flex items-start gap-3 text-slate-700 font-medium">
-                      <ArrowRight className="w-5 h-5 text-[#1E50FF] shrink-0" /> {res}
-                    </li>
-                  ))}
-                </ul>
+          </div>
+        </section>
+
+        <section className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 pb-28">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }} className="relative aspect-[4/3] md:aspect-[16/7] rounded-[1.5rem] overflow-hidden bg-slate-900">
+            <img src={caseData.image} alt={`Cenário do setor de ${caseData.sector}`} className="w-full h-full object-cover opacity-70" />
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-transparent to-transparent" />
+            <div className="absolute left-7 bottom-7 md:left-12 md:bottom-12 text-white">
+              <span className="text-5xl md:text-7xl font-black tracking-tighter">{caseData.metric.value}</span>
+              <p className="text-sm md:text-base mt-2 text-slate-200">{caseData.metric.label}</p>
+              <p className="hidden md:block text-xs mt-1 text-slate-400">{caseData.metric.detail}</p>
+            </div>
+          </motion.div>
+        </section>
+
+        <section className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 pb-28">
+          <div className="grid lg:grid-cols-[0.7fr_1.3fr] gap-10 lg:gap-24">
+            <div><span className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: caseData.accent }}>Entenda o cenário</span><h2 className="text-3xl md:text-4xl font-black tracking-tight mt-4">Do gargalo à decisão.</h2></div>
+            <div className="divide-y divide-slate-200">
+              <div className="grid md:grid-cols-[140px_1fr] gap-5 py-2 pb-10"><h3 className="font-bold text-slate-900">O desafio</h3><p className="text-slate-500 leading-relaxed text-lg">{caseData.challenge}</p></div>
+              <div className="grid md:grid-cols-[140px_1fr] gap-5 py-10"><h3 className="font-bold text-slate-900">A resposta</h3><p className="text-slate-500 leading-relaxed text-lg">{caseData.solution}</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="bg-slate-950 text-white py-28">
+          <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16">
+            <div className="max-w-2xl mb-16"><span className="text-xs font-bold uppercase tracking-[0.22em] text-blue-400">Como a tecnologia trabalha</span><h2 className="text-3xl md:text-5xl font-black tracking-tight mt-5">Complexidade por dentro.<br /><span className="text-slate-500">Clareza para quem usa.</span></h2></div>
+            <div className="grid md:grid-cols-3 gap-px bg-white/10">
+              {caseData.steps.map((step) => (
+                <div key={step.number} className="bg-slate-950 py-10 md:px-8 md:first:pl-0 md:last:pr-0"><span className="text-xs font-bold text-slate-600">/{step.number}</span><h3 className="text-xl font-bold mt-10 mb-4">{step.title}</h3><p className="text-sm text-slate-400 leading-relaxed">{step.description}</p></div>
+              ))}
+            </div>
+            <div className="mt-20">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-500 mb-7">Fluxo simplificado</p>
+              <div className="flex flex-col md:flex-row md:items-center gap-4">
+                {caseData.flow.map((node, index) => (
+                  <div key={node} className="contents"><div className="flex-1 rounded-2xl px-5 py-5 text-sm font-semibold text-center" style={{ backgroundColor: `${caseData.accent}22`, color: index === caseData.flow.length - 1 ? '#fff' : '#cbd5e1' }}>{node}</div>{index < caseData.flow.length - 1 && <MoveRight className="w-5 h-5 text-slate-600 rotate-90 md:rotate-0 self-center" />}</div>
+                ))}
               </div>
             </div>
           </div>
-          
-        </div>
+        </section>
+
+        <section className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 py-28">
+          <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-24">
+            <div><span className="text-xs font-bold uppercase tracking-[0.22em]" style={{ color: caseData.accent }}>Impacto possível</span><h2 className="text-3xl md:text-5xl font-black tracking-tight mt-5">Tecnologia medida pelo que desbloqueia.</h2><p className="text-sm text-slate-400 leading-relaxed mt-7 max-w-md">{caseData.impactNote} Os resultados variam conforme contexto, maturidade dos dados e adoção da solução.</p></div>
+            <div className="grid sm:grid-cols-2 gap-x-10 divide-y sm:divide-y-0 sm:divide-x divide-slate-200">
+              {caseData.secondaryMetrics.map((metric) => (
+                <div key={metric.label} className="py-8 sm:py-0 sm:pl-10 first:pl-0"><Check className="w-5 h-5 mb-10" style={{ color: caseData.accent }} /><strong className="block text-5xl font-black tracking-tighter">{metric.value}</strong><span className="block mt-3 text-sm text-slate-500">{metric.label}</span></div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 pb-28">
+          <Link to={`/cases/${nextCase.slug}`} className="group block rounded-[1.5rem] p-8 md:p-12 text-white overflow-hidden relative bg-[#1E50FF]">
+            <div className="absolute right-[-5%] top-[-60%] w-[420px] h-[420px] bg-white/15 rounded-full blur-3xl" />
+            <div className="relative flex flex-col md:flex-row md:items-end justify-between gap-10"><div><span className="text-xs font-bold uppercase tracking-[0.2em] text-blue-200">Próximo case · {nextCase.sector}</span><h2 className="text-3xl md:text-5xl font-black tracking-tight mt-5 max-w-3xl">{nextCase.title}</h2></div><span className="w-14 h-14 rounded-full bg-white text-[#1E50FF] flex items-center justify-center shrink-0 group-hover:translate-x-1 transition-transform"><ArrowRight className="w-5 h-5" /></span></div>
+          </Link>
+        </section>
       </main>
 
-      <Footer />
-      <ChatWidget />
+      <Footer /><ChatWidget />
     </div>
   );
 }

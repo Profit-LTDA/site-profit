@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { Home } from './pages/Home';
 import { About } from './pages/About';
 import { CaseStudy } from './pages/CaseStudy';
+import { Solutions } from './pages/Solutions';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />
+        <Route path="/solucoes" element={<Solutions />} />
         <Route path="/cases/:slug" element={<CaseStudy />} />
       </Routes>
     </>
