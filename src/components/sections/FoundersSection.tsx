@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail } from 'lucide-react';
+import felixPhoto from '../../assets/members/felix_foto.png';
+import hyagoPhoto from '../../assets/members/hyago_foto.png';
+import kenzoPhoto from '../../assets/members/kenzo_foto.png';
+import arthurPhoto from '../../assets/members/arthur_foto.png';
+import felipePhoto from '../../assets/members/terossi_foto.jpg';
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -44,29 +49,29 @@ export const FOUNDERS: Founder[] = [
     role: 'Sócio & Fundador',
     fullBio: 'Estrategista de negócios e focado em resolver problemas operacionais crônicos. Acredita que a tecnologia deve ser invisível, enquanto o resultado é o que realmente brilha no final do mês.',
     quote: 'Tecnologia eficiente é aquela que resolve o problema sem criar novos.',
-    individualImage: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    email: '#'
+    individualImage: felipePhoto,
+    linkedin: 'https://www.linkedin.com/in/felipe-terossi-5096163b8/',
+    email: 'felipeterossi2@gmail.com'
   },
   {
     id: 'adriano',
-    name: 'Adriano Kenzo',
+    name: 'Kenzo Osako',
     role: 'Sócio & Fundador',
     fullBio: 'Engenheiro de Software apaixonado por criar arquiteturas escaláveis. Lidera a inteligência técnica da Profit garantindo entregas robustas e sob medida.',
     quote: 'Arquiteturas escaláveis são a fundação invisível dos grandes negócios.',
-    individualImage: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    email: '#'
+    individualImage: kenzoPhoto,
+    linkedin: 'https://www.linkedin.com/in/kenzoosako/',
+    email: 'kenzo.o.camargo@gmail.com'
   },
   {
     id: 'gabriel',
     name: 'Gabriel Felix',
     role: 'Sócio & Fundador',
-    fullBio: 'Especialista em design de produto e experiência do usuário. Focado obsessivamente em transformar sistemas complexos em interfaces simples que as pessoas amam usar.',
+    fullBio: 'Engenheiro de Software focado em transformar necessidades de negócio em produtos digitais robustos, intuitivos e escaláveis. Atua da arquitetura à experiência final, conectando decisões técnicas a soluções que geram valor real para quem utiliza.',
     quote: 'A complexidade deve ficar nos bastidores. Para o usuário, apenas a simplicidade.',
-    individualImage: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    email: '#'
+    individualImage: felixPhoto,
+    linkedin: 'https://www.linkedin.com/in/gabriel-morais-felix-017152286/',
+    email: 'fgabrielmorais05@gmail.com'
   },
   {
     id: 'arthur',
@@ -74,9 +79,9 @@ export const FOUNDERS: Founder[] = [
     role: 'Sócio & Fundador',
     fullBio: 'Analista de dados e estrategista em infraestrutura. Seu objetivo é estruturar o oceano de dados das PMEs em relatórios pragmáticos e inteligentes.',
     quote: 'Decisões brilhantes nascem de dados organizados e pragmáticos.',
-    individualImage: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    email: '#'
+    individualImage: arthurPhoto,
+    linkedin: 'https://www.linkedin.com/in/arthur-malveste-5008842aa/',
+    email: 'arthurmielemalveste@gmail.com'
   },
   {
     id: 'hyago',
@@ -84,9 +89,9 @@ export const FOUNDERS: Founder[] = [
     role: 'Sócio & Fundador',
     fullBio: 'Engenheiro de automação, conectando APIs e eliminando tarefas repetitivas. Garante que os processos rodem no piloto automático com precisão.',
     quote: 'Se uma tarefa é repetitiva, ela não deveria ser feita por um humano.',
-    individualImage: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80',
-    linkedin: '#',
-    email: '#'
+    individualImage: hyagoPhoto,
+    linkedin: 'https://www.linkedin.com/in/hyago-sampaio-alves/',
+    email: 'hyago.spalves@gmail.com'
   }
 ];
 
@@ -126,7 +131,7 @@ export function FoundersSection() {
 
       {/* 1. SELETOR DE NOMES (Pills de Vidro Fosco) */}
       <div className="flex justify-center mb-10">
-        <div className="flex gap-2 p-2 bg-slate-100/60 backdrop-blur-md rounded-full border border-slate-200/60 overflow-x-auto hide-scrollbar max-w-full items-center">
+        <div className="flex gap-2 p-2 bg-slate-100 rounded-full border border-slate-200/60 overflow-x-auto hide-scrollbar max-w-full items-center">
           {pills.map((pill) => {
             const isActive = activeId === pill.id;
             return (
@@ -137,13 +142,7 @@ export function FoundersSection() {
                   isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-800'
                 }`}
               >
-                {isActive && (
-                  <motion.div
-                    layoutId="active-pill-gitbook"
-                    className="absolute inset-0 bg-white rounded-full shadow-sm border border-slate-200/80"
-                    transition={{ type: 'spring', stiffness: 350, damping: 30 }}
-                  />
-                )}
+                {isActive && <span className="absolute inset-0 bg-white rounded-full shadow-sm border border-slate-200/80" />}
                 <span className="relative z-10">{pill.label}</span>
               </button>
             );
@@ -152,15 +151,8 @@ export function FoundersSection() {
       </div>
 
       {/* 2. O CARD PRINCIPAL ESTILO GITBOOK (Mesh + Glassmorphism) */}
-      <div className="relative w-full mx-auto rounded-[32px] overflow-hidden p-1 bg-gradient-to-b from-white/80 to-slate-100/50 border border-slate-200/60 shadow-[0_20px_60px_rgba(0,0,0,0.05)]">
-        
-        {/* Blobs de Cor Orgânicos ao Fundo */}
-        <div className="absolute top-0 right-0 w-[450px] h-[450px] bg-sky-200/50 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-0 right-10 w-[400px] h-[400px] bg-rose-200/40 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute top-1/2 left-0 w-[350px] h-[350px] bg-blue-100/40 rounded-full blur-[90px] pointer-events-none" />
-
-        {/* Conteúdo em Vidro Fosco Claro */}
-        <div className="relative z-10 backdrop-blur-2xl bg-white/70 rounded-[30px] p-6 md:p-10 lg:p-12 min-h-[420px] flex items-center justify-center transition-all duration-500">
+      <div className="relative w-full mx-auto rounded-[32px] overflow-hidden p-1 bg-gradient-to-br from-blue-50 via-white to-slate-100 border border-slate-200/60 shadow-[0_16px_45px_rgba(15,23,42,0.05)]">
+        <div className="relative z-10 bg-white/90 rounded-[30px] p-6 md:p-10 lg:p-12 min-h-[420px] flex items-center justify-center">
           <AnimatePresence mode="wait">
             {activeId === 'team' ? (
               <motion.div
@@ -168,7 +160,7 @@ export function FoundersSection() {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.22 }}
                 className="w-full flex flex-col"
               >
                 {/* Team Image */}
@@ -176,6 +168,8 @@ export function FoundersSection() {
                   <img 
                     src={TEAM_OVERVIEW.groupImage}
                     alt="Equipe Profit"
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                   />
                 </div>
@@ -196,31 +190,24 @@ export function FoundersSection() {
                 initial={{ opacity: 0, scale: 0.98 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.22 }}
                 className="w-full flex flex-col md:flex-row gap-8 md:gap-12 items-center"
               >
                 {/* Left: Founder Image */}
                 <div className="w-full md:w-5/12 aspect-[4/5] rounded-2xl overflow-hidden shadow-md border border-white/90 shrink-0 relative">
-                  <motion.img
+                  <img
                     key={`img-${activeFounder?.id}`}
                     src={activeFounder?.individualImage}
                     alt={activeFounder?.name}
-                    initial={{ opacity: 0, scale: 0.96 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 1.02 }}
-                    transition={{ duration: 0.4 }}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                   />
                 </div>
 
                 {/* Right: Founder Details */}
                 <div className="w-full md:w-7/12 flex flex-col justify-center">
-                  <motion.div
-                    key={`founder-details-${activeId}`}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                  >
+                  <div>
                     <div className="mb-3">
                       <span className="inline-block text-xs font-bold text-[#1E50FF] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
                         {activeFounder?.role}
@@ -243,11 +230,11 @@ export function FoundersSection() {
                       <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
                         <LinkedinIcon className="w-4 h-4" />
                       </a>
-                      <a href={activeFounder?.email} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
+                      <a href={`mailto:${activeFounder?.email}`} aria-label={`Enviar e-mail para ${activeFounder?.name}`} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
                         <Mail className="w-4 h-4" />
                       </a>
                     </div>
-                  </motion.div>
+                  </div>
                 </div>
               </motion.div>
             )}

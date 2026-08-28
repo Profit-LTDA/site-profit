@@ -132,7 +132,7 @@ export function Solutions() {
         <section className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 py-28">
           <div className="border-t border-slate-200 pt-16 md:pt-20 grid lg:grid-cols-[1fr_auto] gap-10 items-end">
             <div><span className="text-xs font-bold tracking-[0.2em] uppercase text-[#1E50FF]">Seu contexto é o próximo</span><h2 className="text-3xl md:text-5xl font-black tracking-tight mt-5 max-w-3xl text-slate-900">Conte o que está travando. A gente desenha o caminho.</h2></div>
-            <Link to="/#contact" className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#1E50FF] border border-slate-200 hover:border-[#1E50FF] text-slate-900 hover:text-white text-sm font-bold px-7 py-4 rounded-full transition-all shadow-sm">Conversar com a Profit <ArrowUpRight className="w-4 h-4" /></Link>
+            <Link to="/contato" className="inline-flex items-center justify-center gap-2 bg-white hover:bg-[#1E50FF] border border-slate-200 hover:border-[#1E50FF] text-slate-900 hover:text-white text-sm font-bold px-7 py-4 rounded-full transition-all shadow-sm">Conversar com a Profit <ArrowUpRight className="w-4 h-4" /></Link>
           </div>
         </section>
       </main>

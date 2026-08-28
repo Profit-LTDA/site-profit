@@ -23,8 +23,8 @@ const ROW_2 = [
 ];
 
 function MarqueeRow({ items, direction = 1 }: { items: typeof ROW_1, direction?: 1 | -1 }) {
-  // 4 copies guarantee that half the container is wider than any standard monitor, enabling seamless -50% looping.
-  const extendedItems = [...items, ...items, ...items, ...items]; 
+  // Two copies are enough for a seamless loop and halve the number of animated nodes.
+  const extendedItems = [...items, ...items];
   
   return (
     <div className="flex w-max mb-8">
