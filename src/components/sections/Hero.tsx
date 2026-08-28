@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion';
+import { motion, type Variants } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Typewriter } from '../Typewriter';
@@ -53,16 +52,8 @@ function HeroHeadline() {
 }
 
 export function Hero() {
-  const heroRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ['start start', 'end start'],
-  });
-  const robotY = useTransform(scrollYProgress, [0, 1], [0, 200]);
-
   return (
     <section
-      ref={heroRef}
       className="relative min-h-screen flex flex-col pt-[72px] overflow-hidden"
     >
       {/* Fine dot grid */}
@@ -107,7 +98,7 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 1.1 }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <Link to="/#contact" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-7 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
+              <Link to="/contato" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-7 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
                 Fale com a gente <ArrowUpRight className="w-4 h-4" />
               </Link>
               <Link to="/#what-we-do" className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors">
@@ -138,45 +129,22 @@ export function Hero() {
             initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            style={{ y: robotY }}
             className="flex justify-center lg:justify-end items-center"
           >
-            <motion.div
-              animate={{ y: [0, -20, 0] }}
-              transition={{ duration: 5.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative"
-            >
+            <div className="relative">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none">
-                <motion.div 
-                  animate={{ scale: [1, 1.05, 1], rotate: [0, 5, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute top-10 left-0 w-[80%] h-[80%] bg-[#1E50FF] rounded-full blur-[70px] opacity-80" 
-                />
-                <motion.div 
-                  animate={{ scale: [1, 1.1, 1], x: [0, -20, 0] }}
-                  transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute top-0 left-10 w-[60%] h-[60%] bg-sky-400 rounded-full blur-[60px] opacity-70" 
-                />
-                <motion.div 
-                  animate={{ scale: [1, 1.05, 1], y: [0, 20, 0] }}
-                  transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute bottom-0 right-10 w-[70%] h-[70%] bg-purple-600 rounded-full blur-[80px] opacity-70" 
-                />
-                <motion.div 
-                  animate={{ scale: [1, 1.1, 1], x: [0, 10, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute bottom-10 left-10 w-[50%] h-[50%] bg-blue-700 rounded-full blur-[60px] opacity-80" 
-                />
+                <div className="absolute top-10 left-0 w-[80%] h-[80%] bg-[#1E50FF] rounded-full blur-[70px] opacity-80" />
+                <div className="absolute top-0 left-10 w-[60%] h-[60%] bg-sky-400 rounded-full blur-[60px] opacity-70" />
+                <div className="absolute bottom-0 right-10 w-[70%] h-[70%] bg-purple-600 rounded-full blur-[80px] opacity-70" />
+                <div className="absolute bottom-10 left-10 w-[50%] h-[50%] bg-blue-700 rounded-full blur-[60px] opacity-80" />
               </div>
 
-              <motion.img
+              <img
                 src={robotWaving}
                 alt="Mascote Profit"
                 className="relative w-[280px] sm:w-[320px] lg:w-[460px] object-contain drop-shadow-2xl z-10"
-                animate={{ rotate: [0, 4, -2, 4, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
               />
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
@@ -188,14 +156,10 @@ export function Hero() {
         transition={{ delay: 2 }}
         className="relative pb-8 flex justify-center"
       >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="flex flex-col items-center gap-2 text-slate-300"
-        >
+        <div className="flex flex-col items-center gap-2 text-slate-300">
           <div className="w-px h-8 bg-gradient-to-b from-transparent to-slate-300" />
           <span className="text-[10px] tracking-widest uppercase font-bold">Scroll</span>
-        </motion.div>
+        </div>
       </motion.div>
     </section>
   );

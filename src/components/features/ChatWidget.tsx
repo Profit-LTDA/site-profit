@@ -92,28 +92,12 @@ function ChatWidgetInner() {
               alt="Assistente Profit"
               className="w-14 h-14 object-contain absolute inset-1"
               initial={{ opacity: 0, scale: 0.7 }}
-              animate={{ opacity: 1, scale: [1, 1.07, 1] }}
+              animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.7 }}
-              transition={{ opacity: { duration: 0.2 }, scale: { repeat: Infinity, duration: 2.8, ease: 'easeInOut' } }}
+              transition={{ duration: 0.2 }}
             />
           )}
         </AnimatePresence>
-
-        {/* Pulse rings — only when closed */}
-        {!isExpanded && (
-          <>
-            <motion.span
-              className="absolute inset-0 rounded-full border-2 border-[#1E50FF]"
-              animate={{ scale: [1, 1.5], opacity: [0.5, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeOut' }}
-            />
-            <motion.span
-              className="absolute inset-0 rounded-full border border-[#1E50FF]"
-              animate={{ scale: [1, 1.8], opacity: [0.3, 0] }}
-              transition={{ repeat: Infinity, duration: 2, ease: 'easeOut', delay: 0.5 }}
-            />
-          </>
-        )}
       </motion.button>
     </div>
   );

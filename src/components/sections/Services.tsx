@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { motion, useInView, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import robotNotebook from '../../assets/robot/robot_notebook.png';
 import robotIdea from '../../assets/robot/robot_ideia.png';
@@ -40,30 +40,6 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-60px' });
 
-  // 3D Tilt Effect
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  
-  const smoothX = useSpring(mouseX, { damping: 25, stiffness: 400 });
-  const smoothY = useSpring(mouseY, { damping: 25, stiffness: 400 });
-  
-  const rotateY = useTransform(smoothX, [0, 1], [-10, 10]);
-  const rotateX = useTransform(smoothY, [0, 1], [10, -10]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-    mouseX.set(x);
-    mouseY.set(y);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-  };
-
   return (
     <motion.div
       ref={ref}
@@ -71,13 +47,6 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
       className="group relative bg-white border border-slate-100 hover:border-[#1E50FF]/30 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgba(30,80,255,0.06)] rounded-3xl p-8 mb-6 cursor-pointer transition-all duration-300"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateX,
-        rotateY,
-        transformPerspective: 800,
-      }}
     >
       
       {/* Hover vertical blue line */}
@@ -100,12 +69,10 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
 
         {/* Robot + arrow */}
         <div className="flex items-center gap-5">
-          <motion.img
+          <img
             src={service.robot}
             alt={service.robotAlt}
-            className="w-16 md:w-24 object-contain drop-shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-            initial={false}
-            whileHover={{ scale: 1.1, rotate: -4 }}
+            className="w-16 md:w-24 object-contain drop-shadow-md opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-[opacity,transform] duration-300"
           />
           <div className="w-10 h-10 rounded-full border border-slate-100 group-hover:border-[#1E50FF] group-hover:bg-[#1E50FF] flex items-center justify-center transition-all duration-300 flex-shrink-0">
             <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors" />

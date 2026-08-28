@@ -76,8 +76,8 @@ function TimelineCardItem({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className={`flex gap-5 sm:gap-8 items-start group cursor-pointer transition-all duration-500 ${
-        isActive ? 'opacity-100 scale-[1.02]' : 'opacity-50 hover:opacity-85 scale-100'
+      className={`flex gap-5 sm:gap-8 items-start group cursor-pointer transition-opacity duration-300 ${
+        isActive ? 'opacity-100' : 'opacity-55 hover:opacity-85'
       }`}
       onClick={() => onActivate(index)}
     >
@@ -91,14 +91,14 @@ function TimelineCardItem({
           }`}
         >
           {isActive && (
-            <span className="w-1.5 h-1.5 bg-white rounded-full animate-ping" />
+            <span className="w-1.5 h-1.5 bg-white rounded-full" />
           )}
         </div>
       </div>
 
       {/* Glassmorphism Card */}
       <div
-        className={`flex-1 backdrop-blur-md rounded-2xl p-6 sm:p-7 transition-all duration-500 border ${
+        className={`flex-1 rounded-2xl p-6 sm:p-7 transition-[background-color,border-color,box-shadow] duration-300 border ${
           isActive
             ? 'bg-white/95 border-[#1E50FF]/40 shadow-[0_20px_45px_rgba(30,80,255,0.12)] ring-1 ring-[#1E50FF]/20'
             : 'bg-white/50 border-slate-100 hover:border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.03)]'
@@ -163,19 +163,14 @@ function TimelineSection() {
       <div className="flex flex-col md:flex-row gap-12 lg:gap-20 items-start">
         {/* Left: Sticky 3D Depth Robot Stage */}
         <div className="w-full md:w-1/2 md:sticky top-28 flex flex-col justify-center items-center">
-          <div className="relative w-full max-w-md aspect-[4/5] sm:aspect-square flex items-center justify-center [perspective:1200px]">
+          <div className="relative w-full max-w-md aspect-[4/5] sm:aspect-square flex items-center justify-center">
             
             {/* Dynamic ambient glow behind the robot */}
-            <motion.div 
+            <div
               key={`blob-${activeStep}`}
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: [1, 1.15, 1], opacity: [0.18, 0.28, 0.18], rotate: [0, 10, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] h-[85%] rounded-full blur-[90px]"
-              style={{ backgroundColor: currentStep.accent }}
+              className="absolute inset-[5%] rounded-full opacity-70"
+              style={{ background: `radial-gradient(circle, ${currentStep.accent}45 0%, transparent 68%)`, transition: 'background 300ms ease' }}
             />
-            
-            <div className="absolute top-4 right-6 w-[50%] h-[50%] bg-purple-500 rounded-full blur-[80px] opacity-15 pointer-events-none" />
 
             {/* Depth Robot Container with AnimatePresence */}
             <div className="relative w-full h-full flex items-center justify-center p-4 sm:p-6 overflow-visible">
@@ -184,44 +179,31 @@ function TimelineSection() {
                   key={currentStep.year}
                   initial={{
                     opacity: 0,
-                    scale: 1.35,
-                    y: 50,
-                    filter: 'blur(10px)',
-                    rotateX: 12,
-                    zIndex: 20,
+                    y: 18,
                   }}
                   animate={{
                     opacity: 1,
-                    scale: 1,
                     y: 0,
-                    filter: 'blur(0px)',
-                    rotateX: 0,
-                    zIndex: 20,
                     transition: {
-                      duration: 0.65,
+                      duration: 0.3,
                       ease: [0.22, 1, 0.36, 1],
                     },
                   }}
                   exit={{
                     opacity: 0,
-                    scale: 0.3,
-                    y: -80,
-                    filter: 'blur(18px)',
-                    rotate: -15,
-                    zIndex: 0,
+                    y: -10,
                     transition: {
-                      duration: 0.55,
+                      duration: 0.18,
                       ease: [0.32, 0, 0.67, 0],
                     },
                   }}
                   className="relative w-full h-full flex items-center justify-center"
                 >
-                  {/* Floating idle breathing motion */}
-                  <motion.img
-                    animate={{ y: [0, -14, 0], rotate: [0, 1.5, -1.5, 0] }}
-                    transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+                  <img
                     src={currentStep.robot} 
                     alt={`Robô Profit - ${currentStep.year}`} 
+                    loading="lazy"
+                    decoding="async"
                     className="max-w-[280px] sm:max-w-[340px] max-h-[340px] w-full h-full object-contain drop-shadow-[0_25px_40px_rgba(30,80,255,0.22)] select-none pointer-events-none" 
                   />
                 </motion.div>
@@ -234,7 +216,7 @@ function TimelineSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="absolute -bottom-3 bg-white/90 backdrop-blur-md border border-slate-200/80 shadow-lg px-4 py-1.5 rounded-full flex items-center gap-2 z-20"
+              className="absolute -bottom-3 bg-white border border-slate-200/80 shadow-md px-4 py-1.5 rounded-full flex items-center gap-2 z-20"
             >
               <span className="text-xs font-black text-[#1E50FF]">{currentStep.year}</span>
               <span className="w-1 h-1 bg-slate-300 rounded-full" />
@@ -294,9 +276,8 @@ export function About() {
           className="absolute inset-0 opacity-[0.4] pointer-events-none"
           style={{ backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)', backgroundSize: '28px 28px' }}
         />
-        {/* Subtle blur blobs */}
-        <div className="absolute top-0 right-[-10%] w-[50vw] h-[50vw] max-w-[600px] max-h-[600px] bg-[#1E50FF] rounded-full blur-[150px] opacity-[0.08] pointer-events-none" />
-        <div className="absolute bottom-0 left-[-10%] w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] bg-sky-400 rounded-full blur-[150px] opacity-[0.06] pointer-events-none" />
+        {/* Static ambient color without expensive blur filters */}
+        <div className="absolute inset-0 pointer-events-none opacity-70" style={{ backgroundImage: 'radial-gradient(circle at 100% 5%, rgba(30,80,255,0.08), transparent 30%), radial-gradient(circle at 0% 95%, rgba(56,189,248,0.06), transparent 28%)' }} />
 
         <div className="max-w-screen-xl mx-auto px-6 sm:px-10 lg:px-16 relative z-10">
           
@@ -345,7 +326,7 @@ export function About() {
             className="mt-32 text-center"
           >
             <h2 className="text-3xl font-black text-slate-900 mb-6">Vamos escalar sua operação?</h2>
-            <a href="#contact" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
+            <a href="/contato" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
               Começar um projeto <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
