@@ -12,11 +12,11 @@ export function Home() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-hidden selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
+    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-hidden selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
       
       {/* Global Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-[#1E50FF] origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-(--color-accent) origin-left z-50"
         style={{ scaleX }}
       />
 

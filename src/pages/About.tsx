@@ -19,7 +19,7 @@ const TIMELINE_STEPS = [
     desc: 'Profissionais com interesse em tecnologia, desenvolvimento de software e empreendedorismo reuniram competências complementares para construir projetos próprios e gerar valor por meio de soluções digitais.',
     robot: robotIdea,
     tag: 'Origem',
-    accent: '#1E50FF',
+    accent: 'var(--color-accent)',
   },
   {
     year: 'WeHandle · Julho',
@@ -86,12 +86,12 @@ function TimelineCardItem({
         <div
           className={`w-5 h-5 rounded-full border-[3px] transition-all duration-500 flex items-center justify-center ${
             isActive
-              ? 'bg-[#1E50FF] border-white shadow-[0_0_20px_rgba(30,80,255,0.9)] scale-125'
-              : 'bg-white border-slate-300 group-hover:border-[#1E50FF]'
+              ? 'bg-(--color-accent) border-(--color-surface-elevated) shadow-[0_0_20px_rgba(30,80,255,0.55)] scale-125'
+              : 'bg-(--color-surface-elevated) border-(--color-border) group-hover:border-(--color-accent)'
           }`}
         >
           {isActive && (
-            <span className="w-1.5 h-1.5 bg-white rounded-full" />
+            <span className="w-1.5 h-1.5 bg-(--color-section-dark-text) rounded-full" />
           )}
         </div>
       </div>
@@ -100,33 +100,33 @@ function TimelineCardItem({
       <div
         className={`flex-1 rounded-2xl p-6 sm:p-7 transition-[background-color,border-color,box-shadow] duration-300 border ${
           isActive
-            ? 'bg-white/95 border-[#1E50FF]/40 shadow-[0_20px_45px_rgba(30,80,255,0.12)] ring-1 ring-[#1E50FF]/20'
-            : 'bg-white/50 border-slate-100 hover:border-slate-200 shadow-[0_8px_30px_rgba(0,0,0,0.03)]'
+            ? 'bg-(--color-surface-elevated) border-(--color-accent)/40 shadow-[0_20px_45px_rgba(30,80,255,0.12)] ring-1 ring-(--color-accent)/20'
+            : 'bg-(--color-surface-elevated)/50 border-(--color-border-subtle) hover:border-(--color-border) shadow-[0_8px_30px_rgba(0,0,0,0.03)]'
         }`}
       >
         <div className="flex items-center justify-between gap-2 mb-2">
           <span
             className={`font-black text-xs sm:text-sm uppercase tracking-widest px-3 py-1 rounded-full transition-colors ${
               isActive
-                ? 'bg-blue-50 text-[#1E50FF]'
-                : 'bg-slate-100 text-slate-500'
+                ? 'bg-(--color-accent-subtle) text-(--color-accent-subtle-text)'
+                : 'bg-(--color-surface) text-(--color-text-secondary)'
             }`}
           >
             {step.year}
           </span>
-          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+          <span className="text-[10px] font-bold text-(--color-text-muted) uppercase tracking-wider">
             {step.tag}
           </span>
         </div>
 
         <h3
           className={`text-lg sm:text-xl font-bold mb-2 transition-colors duration-300 ${
-            isActive ? 'text-slate-900' : 'text-slate-700'
+            isActive ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary)'
           }`}
         >
           {step.title}
         </h3>
-        <p className="text-slate-500 leading-relaxed text-sm">
+        <p className="text-(--color-text-secondary) leading-relaxed text-sm">
           {step.desc}
         </p>
       </div>
@@ -145,16 +145,16 @@ function TimelineSection() {
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
-          className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-4"
+          className="inline-flex items-center gap-2 bg-(--color-accent-subtle) border border-(--color-border) rounded-full px-4 py-1.5 mb-4"
         >
-          <Sparkles className="w-3 h-3 text-[#1E50FF]" />
-          <span className="text-xs font-bold text-[#1E50FF] tracking-wider uppercase">Nossa Jornada</span>
+          <Sparkles className="w-3 h-3 text-(--color-accent)" />
+          <span className="text-xs font-bold text-(--color-accent-subtle-text) tracking-wider uppercase">Nossa Jornada</span>
         </motion.div>
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-3xl md:text-5xl font-black text-slate-900"
+          className="text-3xl md:text-5xl font-black text-(--color-text-primary)"
         >
           A História da Profit
         </motion.h2>
@@ -216,11 +216,11 @@ function TimelineSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className="absolute -bottom-3 bg-white border border-slate-200/80 shadow-md px-4 py-1.5 rounded-full flex items-center gap-2 z-20"
+              className="absolute -bottom-3 bg-(--color-surface-elevated) border border-(--color-border) shadow-md px-4 py-1.5 rounded-full flex items-center gap-2 z-20"
             >
-              <span className="text-xs font-black text-[#1E50FF]">{currentStep.year}</span>
-              <span className="w-1 h-1 bg-slate-300 rounded-full" />
-              <span className="text-xs font-semibold text-slate-700">{currentStep.title}</span>
+              <span className="text-xs font-black text-(--color-accent)">{currentStep.year}</span>
+              <span className="w-1 h-1 bg-(--color-border) rounded-full" />
+              <span className="text-xs font-semibold text-(--color-text-secondary)">{currentStep.title}</span>
             </motion.div>
           </div>
         </div>
@@ -228,11 +228,11 @@ function TimelineSection() {
         {/* Right: Vertical Scrolling Timeline */}
         <div className="w-full md:w-1/2 relative py-4 md:py-8">
           {/* Base track */}
-          <div className="absolute left-[9px] top-6 bottom-10 w-[3px] bg-slate-100 rounded-full" />
+          <div className="absolute left-[9px] top-6 bottom-10 w-[3px] bg-(--color-border-subtle) rounded-full" />
           
           {/* Active progress indicator line */}
           <div 
-            className="absolute left-[9px] top-6 w-[3px] bg-gradient-to-b from-[#1E50FF] via-blue-400 to-[#1E50FF] rounded-full shadow-[0_0_12px_rgba(30,80,255,0.7)] transition-all duration-500" 
+            className="absolute left-[9px] top-6 w-[3px] bg-(--color-accent) rounded-full shadow-[0_0_12px_rgba(30,80,255,0.55)] transition-all duration-500" 
             style={{
               height: `${((activeStep + 1) / TIMELINE_STEPS.length) * 85}%`,
             }}
@@ -261,10 +261,10 @@ export function About() {
   const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
 
   return (
-    <div className="min-h-screen bg-white font-sans text-slate-900 overflow-x-clip selection:bg-[#1E50FF]/20 selection:text-[#1E50FF]">
+    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-clip selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
       {/* Global Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-[#1E50FF] origin-left z-50"
+        className="fixed top-0 left-0 right-0 h-[3px] bg-(--color-accent) origin-left z-50"
         style={{ scaleX }}
       />
 
@@ -274,7 +274,7 @@ export function About() {
         {/* Background dotted grid */}
         <div
           className="absolute inset-0 opacity-[0.4] pointer-events-none"
-          style={{ backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+          style={{ backgroundImage: 'radial-gradient(circle, var(--color-dot) 1px, transparent 1px)', backgroundSize: '28px 28px' }}
         />
         {/* Static ambient color without expensive blur filters */}
         <div className="absolute inset-0 pointer-events-none opacity-70" style={{ backgroundImage: 'radial-gradient(circle at 100% 5%, rgba(30,80,255,0.08), transparent 30%), radial-gradient(circle at 0% 95%, rgba(56,189,248,0.06), transparent 28%)' }} />
@@ -287,17 +287,17 @@ export function About() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-6"
+              className="inline-flex items-center gap-2 bg-(--color-accent-subtle) border border-(--color-border) rounded-full px-4 py-1.5 mb-6"
             >
-              <Sparkles className="w-3 h-3 text-[#1E50FF]" />
-              <span className="text-xs font-bold text-[#1E50FF] tracking-wider uppercase">Sobre a Profit</span>
+              <Sparkles className="w-3 h-3 text-(--color-accent)" />
+              <span className="text-xs font-bold text-(--color-accent-subtle-text) tracking-wider uppercase">Sobre a Profit</span>
             </motion.div>
             
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 leading-[1.1] mb-6"
+              className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-(--color-text-primary) leading-[1.1] mb-6"
             >
               Do alinhamento de ideias à construção de soluções em equipe.
             </motion.h1>
@@ -306,7 +306,7 @@ export function About() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto"
+              className="text-lg text-(--color-text-secondary) leading-relaxed max-w-2xl mx-auto"
             >
               A Profit surgiu do alinhamento entre profissionais com perfis complementares, conhecimento técnico e visão de negócio. Nos hackathons, a equipe encontrou um ambiente para validar ideias, aprender e construir soluções para problemas reais.
             </motion.p>
@@ -322,9 +322,9 @@ export function About() {
               ['Contexto e personalização', 'Na WeHandle, aprendemos a considerar o setor e as prioridades da empresa antes de definir os critérios de uma solução.'],
               ['Visão de negócio', 'Nos projetos desenvolvidos, proposta de valor, modelo de negócio e estratégia passaram a fazer parte do trabalho desde o início.'],
               ['Comunicação e colaboração', 'Apresentar uma ideia com clareza e combinar habilidades diferentes são partes do processo de construir um produto.'],
-            ].map(([title, text]) => <article key={title} className="border-t border-slate-200 pt-6"><h2 className="text-2xl font-bold mb-4">{title}</h2><p className="text-base text-slate-600 leading-relaxed">{text}</p></article>)}
+            ].map(([title, text]) => <article key={title} className="border-t border-(--color-border) pt-6"><h2 className="text-2xl font-bold text-(--color-text-primary) mb-4">{title}</h2><p className="text-base text-(--color-text-secondary) leading-relaxed">{text}</p></article>)}
           </section>
-          <div className="mb-20 text-center"><a href="/solucoes#cases" className="font-bold text-[#1E50FF] hover:underline">Conheça os dois projetos que marcaram essa jornada →</a></div>
+          <div className="mb-20 text-center"><a href="/solucoes#cases" className="font-bold text-(--color-accent) hover:underline">Conheça os dois projetos que marcaram essa jornada →</a></div>
           <FoundersSection />
           {/* Call to action at the bottom */}
           <motion.div
@@ -334,8 +334,8 @@ export function About() {
             transition={{ duration: 0.6 }}
             className="mt-32 text-center"
           >
-            <h2 className="text-3xl font-black text-slate-900 mb-6">Vamos escalar sua operação?</h2>
-            <a href="/contato" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
+            <h2 className="text-3xl font-black text-(--color-text-primary) mb-6">Vamos escalar sua operação?</h2>
+            <a href="/contato" className="inline-flex items-center gap-2 bg-(--color-accent) hover:bg-(--color-accent-hover) text-white text-sm font-bold px-8 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
               Começar um projeto <ArrowRight className="w-4 h-4" />
             </a>
           </motion.div>
