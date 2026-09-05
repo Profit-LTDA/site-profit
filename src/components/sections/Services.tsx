@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import robotNotebook from '../../assets/robot/robot_notebook.png';
-import robotIdea from '../../assets/robot/robot_ideia.png';
-import robotWaving from '../../assets/robot/robot_acenando (1).png';
+import robotNotebook from '../../assets/robot/robot_notebook.webp';
+import robotIdea from '../../assets/robot/robot_ideia.webp';
+import robotWaving from '../../assets/robot/robot_acenando (1).webp';
 
 const SERVICES = [
   {

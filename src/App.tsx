@@ -1,12 +1,8 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { MotionConfig } from 'framer-motion';
-import { Home } from './pages/Home';
-import { About } from './pages/About';
-import { CaseStudy } from './pages/CaseStudy';
-import { Solutions } from './pages/Solutions';
-import { Contact } from './pages/Contact';
-import { CustomCursor } from './components/ui/CustomCursor';
+import { AppRoutes } from './app/router';
+import { AppErrorBoundary } from './app/AppErrorBoundary';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -26,14 +22,9 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <ScrollToTop />
-      <CustomCursor />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/sobre" element={<About />} />
-        <Route path="/solucoes" element={<Solutions />} />
-        <Route path="/contato" element={<Contact />} />
-        <Route path="/cases/:slug" element={<CaseStudy />} />
-      </Routes>
+      <AppErrorBoundary>
+        <AppRoutes />
+      </AppErrorBoundary>
     </MotionConfig>
   );
 }

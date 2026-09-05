@@ -11,6 +11,9 @@ node_modules
 dist
 dist-ssr
 *.local
+.env
+.env.*
+!.env.example
 
 # Originais de mídia; o site versiona as cópias WebP otimizadas
 src/assets/hackathons/**/*.jpg

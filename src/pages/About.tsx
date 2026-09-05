@@ -1,14 +1,11 @@
 import { useState, useRef, useEffect } from 'react';
-import { motion, useScroll, useSpring, useInView, AnimatePresence } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { ChatWidget } from '../components/features/ChatWidget';
 import { FoundersSection } from '../components/sections/FoundersSection';
-import robotIdea from '../assets/robot/robot_ideia.png';
-import robotNotebook from '../assets/robot/robot_notebook.png';
-import robotChat from '../assets/robot/robot_chat.png';
-import robotWaving from '../assets/robot/robot_acenando (1).png';
+import robotIdea from '../assets/robot/robot_ideia.webp';
+import robotNotebook from '../assets/robot/robot_notebook.webp';
+import robotChat from '../assets/robot/robot_chat.webp';
+import robotWaving from '../assets/robot/robot_acenando (1).webp';
 
 
 
@@ -23,8 +20,8 @@ const TIMELINE_STEPS = [
   },
   {
     year: 'WeHandle · Julho',
-    title: 'WeHandle: contexto antes dos critérios',
-    desc: 'O desafio era avaliar a conformidade de fornecedores com dados públicos e APIs. A equipe desenvolveu uma análise personalizada, guiada pelo contexto da contratante e por um chatbot que mapeava prioridades. A proposta conquistou o primeiro lugar.',
+    title: 'WeHandle: um desafio construído em equipe',
+    desc: 'No Hackathon WeHandle, a equipe reuniu competências técnicas, visão de negócio e comunicação para responder a um desafio empresarial. A proposta conquistou o primeiro lugar, e seus detalhes são preservados por confidencialidade.',
     robot: robotNotebook,
     tag: 'Desenvolvimento',
     accent: '#0284c7',
@@ -257,20 +254,8 @@ function TimelineSection() {
 }
 
 export function About() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
   return (
-    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-clip selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
-      {/* Global Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-(--color-accent) origin-left z-50"
-        style={{ scaleX }}
-      />
-
-      <Navbar />
-
-      <main className="pt-32 pb-20 relative">
+    <main className="pt-32 pb-20 relative">
         {/* Background dotted grid */}
         <div
           className="absolute inset-0 opacity-[0.4] pointer-events-none"
@@ -319,7 +304,7 @@ export function About() {
           <section className="mb-24 grid md:grid-cols-2 gap-10">
             {[
               ['Engenharia e experimentação', 'Transformar uma pergunta em uma solução exige construir, testar ideias e ajustar o caminho em conjunto.'],
-              ['Contexto e personalização', 'Na WeHandle, aprendemos a considerar o setor e as prioridades da empresa antes de definir os critérios de uma solução.'],
+              ['Análise e execução', 'Na WeHandle, a equipe fortaleceu sua capacidade de compreender um desafio, alinhar diferentes perspectivas e transformar decisões em uma proposta consistente.'],
               ['Visão de negócio', 'Nos projetos desenvolvidos, proposta de valor, modelo de negócio e estratégia passaram a fazer parte do trabalho desde o início.'],
               ['Comunicação e colaboração', 'Apresentar uma ideia com clareza e combinar habilidades diferentes são partes do processo de construir um produto.'],
             ].map(([title, text]) => <article key={title} className="border-t border-(--color-border) pt-6"><h2 className="text-2xl font-bold text-(--color-text-primary) mb-4">{title}</h2><p className="text-base text-(--color-text-secondary) leading-relaxed">{text}</p></article>)}
@@ -341,10 +326,6 @@ export function About() {
           </motion.div>
 
         </div>
-      </main>
-
-      <Footer />
-      <ChatWidget />
-    </div>
+    </main>
   );
 }

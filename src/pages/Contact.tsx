@@ -1,24 +1,8 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ArrowUpRight, Camera, CheckCircle2, Mail, Send } from 'lucide-react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { ChatWidget } from '../components/features/ChatWidget';
-import { FOUNDERS } from '../components/sections/FoundersSection';
-import robotChat from '../assets/robot/robot_chat.png';
-
-const CONTACT_EMAIL = 'profit.ltda0@gmail.com';
-
-const SOCIALS = [
-  { name: 'Instagram', handle: '@profit.solucoes', href: 'https://www.instagram.com/profit.solucoes/', icon: Camera },
-];
-
-const TEAM_ROLES: Record<string, string> = {
-  felipe: 'Negócios e estratégia',
-  adriano: 'Engenharia de software',
-  gabriel: 'Engenharia de software e produto',
-  arthur: 'Dados e infraestrutura',
-  hyago: 'Automação e integrações',
-};
+import { CONTACT_EMAIL, CONTACT_SUBJECTS, SOCIAL_CHANNELS, TEAM_ROLES } from '../data/contact';
+import { FOUNDERS } from '../data/team';
+import robotChat from '../assets/robot/robot_chat.webp';
 
 const TEAM = FOUNDERS.map((member) => ({
   id: member.id,
@@ -28,40 +12,56 @@ const TEAM = FOUNDERS.map((member) => ({
   email: member.email,
 }));
 
-const SUBJECTS = [
-  'Quero desenvolver uma solução',
-  'Automação de processos',
-  'Integração de sistemas',
-  'Dados e inteligência',
-  'Parceria comercial',
-  'Suporte e atendimento',
-  'Outro assunto',
-];
+const CONTACT_FORM_ENABLED = false;
+
 
 export function Contact() {
   const [selectedMember, setSelectedMember] = useState('');
-  const [feedback, setFeedback] = useState(false);
+  const [submission, setSubmission] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [submissionError, setSubmissionError] = useState('');
+  const startedAt = useRef(0);
 
   useEffect(() => {
-    document.title = 'Contato | Profit';
-    return () => { document.title = 'Profit'; };
+    startedAt.current = Date.now();
   }, []);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    if (!CONTACT_FORM_ENABLED) return;
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const name = String(form.get('name') || '');
     const email = String(form.get('email') || '');
-    const company = String(form.get('company') || 'Não informado');
-    const phone = String(form.get('phone') || 'Não informado');
+    const company = String(form.get('company') || '');
+    const phone = String(form.get('phone') || '');
     const subject = String(form.get('subject') || 'Contato pelo site');
     const message = String(form.get('message') || '');
-    const responsible = selectedMember || 'Equipe Profit';
-    const memberEmail = FOUNDERS.find((member) => member.name === selectedMember)?.email;
-    const recipient = memberEmail || CONTACT_EMAIL;
-    const body = [`Nome: ${name}`, `E-mail: ${email}`, `Empresa: ${company}`, `Telefone: ${phone}`, `Direcionado a: ${responsible}`, '', message].join('\n');
-    setFeedback(true);
-    window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    const website = String(form.get('website') || '');
+    const memberId = TEAM.find((member) => member.name === selectedMember)?.id || '';
+
+    setSubmission('sending');
+    setSubmissionError('');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, company, phone, subject, message, website, memberId, consent: true, startedAt: startedAt.current }),
+      });
+      const result = await response.json() as { success?: boolean; error?: string };
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || 'Não foi possível enviar a mensagem.');
+      }
+
+      setSubmission('success');
+      setSelectedMember('');
+      formElement.reset();
+      startedAt.current = Date.now();
+    } catch (error) {
+      setSubmission('error');
+      setSubmissionError(error instanceof Error ? error.message : 'Não foi possível enviar a mensagem.');
+    }
   }
 
   function chooseMember(name: string) {
@@ -70,9 +70,7 @@ export function Contact() {
   }
 
   return (
-    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-hidden selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
-      <Navbar />
-      <main>
+    <main>
         <section className="relative pt-40 lg:pt-48 pb-24 overflow-hidden">
           <div className="absolute inset-0 opacity-40 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, var(--color-dot) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 90% 15%, rgba(30,80,255,0.12), transparent 30%)' }} />
@@ -96,9 +94,9 @@ export function Contact() {
               <span className="text-xs font-bold tracking-[0.2em] uppercase text-(--color-accent)">Outros canais</span>
               <h2 className="text-3xl md:text-4xl font-black tracking-tight mt-4">Acompanhe o que estamos construindo.</h2>
               <div className="mt-10 border-t border-(--color-border)">
-                {SOCIALS.map(({ name, handle, href, icon: Icon }) => (
+                {SOCIAL_CHANNELS.map(({ name, handle, href }) => (
                   <a key={name} href={href} target="_blank" rel="noreferrer" className="group flex items-center gap-4 py-5 border-b border-(--color-border)">
-                    <span className="w-10 h-10 rounded-full bg-(--color-surface) group-hover:bg-(--color-accent) text-(--color-text-secondary) group-hover:text-white flex items-center justify-center transition-colors"><Icon className="w-4 h-4" /></span>
+                    <span className="w-10 h-10 rounded-full bg-(--color-surface) group-hover:bg-(--color-accent) text-(--color-text-secondary) group-hover:text-white flex items-center justify-center transition-colors"><Camera className="w-4 h-4" /></span>
                     <span className="flex-1"><strong className="block text-sm text-(--color-text-primary)">{name}</strong><span className="block text-xs text-(--color-text-muted) mt-0.5">{handle}</span></span>
                     <ArrowUpRight className="w-4 h-4 text-(--color-text-muted) group-hover:text-(--color-accent) group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                   </a>
@@ -107,19 +105,26 @@ export function Contact() {
             </aside>
 
             <section id="formulario" className="scroll-mt-28 rounded-[1.75rem] bg-(--color-surface) border border-(--color-border-subtle) p-6 sm:p-9 md:p-12 transition-colors duration-300">
-              <div className="mb-10"><span className="text-xs font-bold tracking-[0.2em] uppercase text-(--color-accent)">Envie sua mensagem</span><h2 className="text-3xl font-black text-(--color-text-primary) tracking-tight mt-4">Como podemos ajudar?</h2><p className="text-sm text-(--color-text-secondary) mt-3">Preencha os campos e abriremos seu aplicativo de e-mail com a mensagem pronta para envio.</p></div>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="mb-8"><span className="text-xs font-bold tracking-[0.2em] uppercase text-(--color-accent)">Envie sua mensagem</span><h2 className="text-3xl font-black text-(--color-text-primary) tracking-tight mt-4">Como podemos ajudar?</h2><p className="text-sm text-(--color-text-secondary) mt-3">O envio direto pelo site estará disponível em breve.</p></div>
+              <div className="mb-8 flex items-start gap-4 rounded-2xl border border-(--color-accent) bg-(--color-accent-subtle) p-5" role="status">
+                <Mail className="mt-0.5 h-5 w-5 shrink-0 text-(--color-accent)" />
+                <div><strong className="block text-sm text-(--color-text-primary)">Formulário temporariamente indisponível</strong><p className="mt-1 text-sm leading-relaxed text-(--color-text-secondary)">Enquanto finalizamos este canal, envie sua mensagem para <a href={`mailto:${CONTACT_EMAIL}`} className="font-bold text-(--color-accent) hover:underline">{CONTACT_EMAIL}</a>.</p></div>
+              </div>
+              <form onSubmit={handleSubmit}>
+                <fieldset disabled={!CONTACT_FORM_ENABLED} className="space-y-6 opacity-55">
+                <div className="absolute -left-[10000px] h-px w-px overflow-hidden" aria-hidden="true"><label>Não preencha este campo<input name="website" tabIndex={-1} autoComplete="off" /></label></div>
                 <div className="grid sm:grid-cols-2 gap-5">
                   <label className="text-sm font-semibold text-(--color-text-primary)">Nome<span className="text-(--color-accent)"> *</span><input required name="name" autoComplete="name" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) placeholder:text-(--color-text-muted) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow" placeholder="Seu nome" /></label>
                   <label className="text-sm font-semibold text-(--color-text-primary)">E-mail<span className="text-(--color-accent)"> *</span><input required type="email" name="email" autoComplete="email" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) placeholder:text-(--color-text-muted) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow" placeholder="voce@empresa.com" /></label>
                   <label className="text-sm font-semibold text-(--color-text-primary)">Empresa<input name="company" autoComplete="organization" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) placeholder:text-(--color-text-muted) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow" placeholder="Nome da empresa" /></label>
                   <label className="text-sm font-semibold text-(--color-text-primary)">Telefone<input name="phone" autoComplete="tel" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) placeholder:text-(--color-text-muted) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow" placeholder="(00) 00000-0000" /></label>
                 </div>
-                <label className="block text-sm font-semibold text-(--color-text-primary)">Assunto<span className="text-(--color-accent)"> *</span><select required name="subject" defaultValue="" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow"><option value="" disabled>Selecione um assunto</option>{SUBJECTS.map((subject) => <option key={subject}>{subject}</option>)}</select></label>
+                <label className="block text-sm font-semibold text-(--color-text-primary)">Assunto<span className="text-(--color-accent)"> *</span><select required name="subject" defaultValue="" className="mt-3 min-h-[58px] w-full bg-(--color-surface-elevated) text-(--color-text-primary) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow"><option value="" disabled>Selecione um assunto</option>{CONTACT_SUBJECTS.map((subject) => <option key={subject}>{subject}</option>)}</select></label>
                 {selectedMember && <div className="flex items-center justify-between gap-4 rounded-xl bg-(--color-accent-subtle) text-(--color-text-primary) px-4 py-3 text-sm"><span><strong>Direcionar para:</strong> {selectedMember}</span><button type="button" onClick={() => setSelectedMember('')} className="text-(--color-accent) font-bold">Remover</button></div>}
                 <label className="block text-sm font-semibold text-(--color-text-primary)">Mensagem<span className="text-(--color-accent)"> *</span><textarea required name="message" rows={6} className="mt-3 min-h-[180px] w-full resize-y bg-(--color-surface-elevated) text-(--color-text-primary) placeholder:text-(--color-text-muted) border border-(--color-border) rounded-xl px-4 py-4 outline-none focus:border-(--color-accent) focus:ring-4 focus:ring-(--color-accent-subtle) transition-shadow" placeholder="Conte um pouco sobre o que você precisa resolver..." /></label>
                 <label className="flex items-start gap-3 text-xs text-(--color-text-secondary) leading-relaxed"><input required type="checkbox" className="mt-0.5 accent-(--color-accent)" /><span>Concordo que a Profit utilize estes dados exclusivamente para responder ao meu contato.</span></label>
-                <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4"><button type="submit" className="inline-flex items-center justify-center gap-2 bg-(--color-accent) hover:bg-(--color-accent-hover) text-white text-sm font-bold px-7 py-4 rounded-full transition-colors">Preparar mensagem <Send className="w-4 h-4" /></button>{feedback && <span className="inline-flex items-center gap-2 text-sm text-(--color-success)"><CheckCircle2 className="w-4 h-4" /> Mensagem preparada no seu aplicativo de e-mail.</span>}</div>
+                <div className="pt-4 flex flex-col sm:flex-row sm:items-center gap-4"><button type="submit" disabled={!CONTACT_FORM_ENABLED || submission === 'sending'} className="inline-flex items-center justify-center gap-2 bg-(--color-accent) hover:bg-(--color-accent-hover) disabled:opacity-60 disabled:cursor-not-allowed text-white text-sm font-bold px-7 py-4 rounded-full transition-colors">{CONTACT_FORM_ENABLED ? (submission === 'sending' ? 'Enviando...' : 'Enviar mensagem') : 'Envio indisponível'} <Send className="w-4 h-4" /></button>{submission === 'success' && <span className="inline-flex items-center gap-2 text-sm text-(--color-success)" role="status"><CheckCircle2 className="w-4 h-4" /> Mensagem enviada com sucesso.</span>}{submission === 'error' && <span className="text-sm text-red-500" role="alert">{submissionError}</span>}</div>
+                </fieldset>
               </form>
             </section>
           </div>
@@ -139,8 +144,6 @@ export function Contact() {
             </div>
           </div>
         </section>
-      </main>
-      <Footer /><ChatWidget />
-    </div>
+    </main>
   );
 }

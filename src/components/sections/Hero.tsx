@@ -3,7 +3,7 @@ import { ArrowUpRight, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Typewriter } from '../Typewriter';
 import { Magnetic } from '../ui/Magnetic';
-import robotWaving from '../../assets/robot/robot_acenando (1).png';
+import robotWaving from '../../assets/robot/robot_acenando (1).webp';
 
 function HeroHeadline() {
   const containerVariants: Variants = {
@@ -54,7 +54,7 @@ function HeroHeadline() {
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col pt-[72px] bg-(--color-bg) transition-colors duration-300">
+    <section className="relative min-h-screen flex flex-col overflow-hidden pt-[72px] bg-(--color-bg) transition-colors duration-300">
       {/* Fine dot grid */}
       <div
         className="absolute inset-0 opacity-[0.5]"
@@ -68,8 +68,8 @@ export function Hero() {
       <div className="pointer-events-none absolute bottom-0 -left-20 w-[600px] h-[600px] bg-(--color-accent) rounded-full blur-[150px] opacity-[0.1]" />
 
       {/* Content grid */}
-      <div className="relative flex-1 flex items-center max-w-screen-xl mx-auto w-full px-6 sm:px-10 lg:px-16 py-20 lg:py-0">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] xl:grid-cols-[1fr_520px] gap-16 lg:gap-8 w-full items-center">
+      <div className="relative flex-1 flex items-center max-w-screen-xl mx-auto w-full px-6 sm:px-10 lg:px-16 pt-16 pb-8 sm:pt-20 sm:pb-12 lg:py-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_460px] xl:grid-cols-[1fr_520px] gap-8 sm:gap-12 lg:gap-8 w-full items-center">
 
           {/* Left */}
           <div>
@@ -135,20 +135,23 @@ export function Hero() {
             initial={{ opacity: 0, y: 48 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="flex justify-center lg:justify-end items-center"
+            className="flex w-full min-w-0 justify-center lg:justify-end items-center"
           >
-            <div className="relative">
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] lg:w-[500px] lg:h-[500px] pointer-events-none">
-                <div className="absolute top-10 left-0 w-[80%] h-[80%] bg-[#1E50FF] rounded-full blur-[70px] opacity-80" />
-                <div className="absolute top-0 left-10 w-[60%] h-[60%] bg-sky-400 rounded-full blur-[60px] opacity-70" />
-                <div className="absolute bottom-0 right-10 w-[70%] h-[70%] bg-purple-600 rounded-full blur-[80px] opacity-70" />
-                <div className="absolute bottom-10 left-10 w-[50%] h-[50%] bg-blue-700 rounded-full blur-[60px] opacity-80" />
+            <div className="relative isolate flex h-[360px] w-full max-w-[430px] items-center justify-center sm:h-[420px] lg:h-[560px] lg:max-w-none lg:justify-end">
+              <div className="pointer-events-none absolute left-1/2 top-1/2 h-[330px] w-[330px] -translate-x-1/2 -translate-y-1/2 sm:h-[390px] sm:w-[390px] lg:left-auto lg:right-[-20px] lg:h-[520px] lg:w-[520px] lg:translate-x-0">
+                <div className="absolute inset-[8%] rounded-full bg-[#1E50FF] opacity-75 blur-[75px]" />
+                <div className="absolute left-[8%] top-[4%] h-[58%] w-[58%] rounded-full bg-sky-400 opacity-65 blur-[65px]" />
+                <div className="absolute bottom-[2%] right-[3%] h-[68%] w-[68%] rounded-full bg-purple-600 opacity-65 blur-[80px]" />
               </div>
 
               <img
                 src={robotWaving}
                 alt="Mascote Profit"
-                className="relative w-[280px] sm:w-[320px] lg:w-[460px] object-contain drop-shadow-2xl z-10"
+                width={1004}
+                height={1004}
+                decoding="async"
+                fetchPriority="high"
+                className="relative z-10 w-[310px] max-w-[88vw] object-contain drop-shadow-2xl sm:w-[360px] lg:w-[460px]"
               />
             </div>
           </motion.div>
@@ -160,7 +163,7 @@ export function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="relative pb-8 flex justify-center"
+        className="relative hidden pb-8 lg:flex justify-center"
       >
         <div className="flex flex-col items-center gap-2 text-(--color-text-muted)">
           <div className="w-px h-8 bg-gradient-to-b from-transparent to-(--color-text-muted)" />

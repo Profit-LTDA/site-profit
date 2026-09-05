@@ -54,7 +54,7 @@ const ExpandableContext = createContext<ExpandableCtx>({
   easeType: "easeInOut",
 })
 
-export const useExpandable = () => useContext(ExpandableContext)
+const useExpandable = () => useContext(ExpandableContext)
 
 // ─── Expandable root ──────────────────────────────────────────────────────────
 interface ExpandableProps {

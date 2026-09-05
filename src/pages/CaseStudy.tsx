@@ -1,33 +1,24 @@
 import { useEffect } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { useParams, Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Check, CircleDot, MoveRight } from 'lucide-react';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { ChatWidget } from '../components/features/ChatWidget';
 import { CASES, getCaseBySlug } from '../data/cases';
+import { NotFound } from './NotFound';
 
 export function CaseStudy() {
   const { slug } = useParams();
   const caseData = getCaseBySlug(slug);
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
   useEffect(() => {
     if (caseData) document.title = `${caseData.eyebrow} | Profit`;
     return () => { document.title = 'Profit'; };
   }, [caseData]);
 
-  if (!caseData) return <Navigate to="/solucoes#cases" replace />;
+  if (!caseData) return <NotFound />;
   const currentIndex = CASES.findIndex((item) => item.slug === caseData.slug);
   const nextCase = CASES[(currentIndex + 1) % CASES.length];
 
   return (
-    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-hidden selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
-      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-(--color-accent) origin-left z-50" style={{ scaleX }} />
-      <Navbar />
-
-      <main>
+    <main>
         <section className="relative pt-36 pb-20 lg:pt-44 lg:pb-32 overflow-hidden">
           <div className="absolute inset-0 opacity-50 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, var(--color-dot) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute -top-48 right-[-10%] w-[600px] h-[600px] rounded-full blur-[150px] opacity-20 pointer-events-none" style={{ backgroundColor: caseData.accent }} />
@@ -166,9 +157,6 @@ export function CaseStudy() {
             </div>
           </Link>
         </section>
-      </main>
-
-      <Footer /><ChatWidget />
-    </div>
+    </main>
   );
 }

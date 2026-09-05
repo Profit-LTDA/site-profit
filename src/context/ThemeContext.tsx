@@ -1,17 +1,7 @@
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { ThemeContext, type Theme } from './theme';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
-
-export type Theme = 'light' | 'dark';
-
-interface ThemeContextValue {
-  theme: Theme;
-  toggleTheme: () => void;
-}
-
-// ─── Context ──────────────────────────────────────────────────────────────────
-
-const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -70,14 +60,4 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       {children}
     </ThemeContext.Provider>
   );
-}
-
-// ─── Hook ─────────────────────────────────────────────────────────────────────
-
-export function useTheme(): ThemeContextValue {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) {
-    throw new Error('useTheme must be used within a <ThemeProvider>');
-  }
-  return ctx;
 }

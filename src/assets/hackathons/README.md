@@ -2,13 +2,13 @@
 
 Coloque a foto principal de cada evento na pasta correspondente:
 
-- `wehandle/capa.jpg`: hackathon WeHandle, avaliação de fornecedores.
+- `wehandle/capa.jpg`: registro do Hackathon WeHandle.
 - `treinamento-ia/foto_comAvaliador.webp`: registro da equipe após a apresentação no Hackathon Hack2L.
 - `treinamento-ia/socios_trabalhando.webp`: desenvolvimento da plataforma de treinamento com IA.
 - `treinamento-ia/socios_rindo.webp`: equipe durante as atividades do evento.
 - `wehandle/socios_na_wehandle.webp`: registro da equipe campeã no Hackathon WeHandle.
-- `wehandle/socios_trabalhando_wehandle.webp`: equipe trabalhando na solução de conformidade.
-- `wehandle/socio_pensando.webp`: análise das decisões técnicas e de negócio.
+- `wehandle/socios_trabalhando_wehandle.webp`: equipe trabalhando durante a competição.
+- `wehandle/socio_pensando.webp`: análise e tomada de decisão durante o evento.
 
 Também são aceitas as extensões jpeg, png e webp. Use apenas uma capa por pasta.
 O site detecta a capa automaticamente no próximo build ou reinício do servidor
