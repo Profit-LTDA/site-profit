@@ -21,9 +21,9 @@ type Props = {
 
 const DEFAULTS: Required<Omit<Props, 'cursorAnimationVariants' | 'style' | 'className'>> = {
   prefix: "",
-  color: "#0f172a",
+  color: "var(--color-text-primary)",
   texts: ["results.", "negócios.", "o futuro.", "times."],
-  typedColor: "#1E50FF",
+  typedColor: "var(--color-accent)",
   ease: { type: "tween", duration: 0.07, delay: 1.8, ease: "easeInOut" } as any,
   deleteSpeed: 0.06,
   showCursor: true,

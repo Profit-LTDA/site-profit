@@ -116,7 +116,7 @@ export function FoundersSection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight"
+            className="text-3xl md:text-5xl font-black text-(--color-text-primary) tracking-tight"
           >
             Quem faz acontecer
           </motion.h2>
@@ -124,7 +124,7 @@ export function FoundersSection() {
 
       {/* 1. SELETOR DE NOMES (Pills de Vidro Fosco) */}
       <div className="flex justify-center mb-10">
-        <div className="flex gap-2 p-2 bg-slate-100 rounded-full border border-slate-200/60 overflow-x-auto hide-scrollbar max-w-full items-center">
+        <div className="flex gap-2 p-2 bg-(--color-surface) rounded-full border border-(--color-border) overflow-x-auto hide-scrollbar max-w-full items-center">
           {pills.map((pill) => {
             const isActive = activeId === pill.id;
             return (
@@ -132,10 +132,10 @@ export function FoundersSection() {
                 key={pill.id}
                 onClick={() => setActiveId(pill.id)}
                 className={`relative px-4 sm:px-5 py-2 text-sm font-semibold rounded-full transition-all duration-300 whitespace-nowrap ${
-                  isActive ? 'text-slate-900' : 'text-slate-500 hover:text-slate-800'
+                  isActive ? 'text-(--color-text-primary)' : 'text-(--color-text-secondary) hover:text-(--color-text-primary)'
                 }`}
               >
-                {isActive && <span className="absolute inset-0 bg-white rounded-full shadow-sm border border-slate-200/80" />}
+                {isActive && <span className="absolute inset-0 bg-(--color-surface-elevated) rounded-full shadow-sm border border-(--color-border)" />}
                 <span className="relative z-10">{pill.label}</span>
               </button>
             );
@@ -144,8 +144,8 @@ export function FoundersSection() {
       </div>
 
       {/* 2. O CARD PRINCIPAL ESTILO GITBOOK (Mesh + Glassmorphism) */}
-      <div className="relative w-full mx-auto rounded-[32px] overflow-hidden p-1 bg-gradient-to-br from-blue-50 via-white to-slate-100 border border-slate-200/60 shadow-[0_16px_45px_rgba(15,23,42,0.05)]">
-        <div className="relative z-10 bg-white/90 rounded-[30px] p-6 md:p-10 lg:p-12 min-h-[420px] flex items-center justify-center">
+      <div className="relative w-full mx-auto rounded-[32px] overflow-hidden p-1 bg-(--color-surface) border border-(--color-border) shadow-[0_16px_45px_rgba(15,23,42,0.05)]">
+        <div className="relative z-10 bg-(--color-surface-elevated) rounded-[30px] p-6 md:p-10 lg:p-12 min-h-[420px] flex items-center justify-center">
           <AnimatePresence mode="wait">
             {activeId === 'team' ? (
               <motion.div
@@ -160,16 +160,16 @@ export function FoundersSection() {
                 <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-10">
                   {FOUNDERS.map((member) => <button key={member.id} type="button" onClick={() => setActiveId(member.id)} className="text-left group">
                     <img src={member.individualImage} alt={member.name} loading="lazy" decoding="async" className="w-full aspect-[4/5] rounded-xl object-cover" />
-                    <span className="block mt-3 text-sm font-semibold group-hover:text-[#1E50FF]">{member.name}</span>
+                    <span className="block mt-3 text-sm font-semibold text-(--color-text-primary) group-hover:text-(--color-accent)">{member.name}</span>
                   </button>)}
                 </div>
                 
                 {/* Team Footer Content */}
                 <div className="text-center w-full max-w-2xl mx-auto">
-                  <h3 className="text-3xl font-bold text-slate-900 tracking-tight mb-3">
+                  <h3 className="text-3xl font-bold text-(--color-text-primary) tracking-tight mb-3">
                     {TEAM_OVERVIEW.title}
                   </h3>
-                  <p className="text-slate-600 text-base md:text-lg leading-relaxed">
+                  <p className="text-(--color-text-secondary) text-base md:text-lg leading-relaxed">
                     "{TEAM_OVERVIEW.missionQuote}"
                   </p>
                 </div>
@@ -184,7 +184,7 @@ export function FoundersSection() {
                 className="w-full flex flex-col md:flex-row gap-8 md:gap-12 items-center"
               >
                 {/* Left: Founder Image */}
-                <div className="w-full md:w-5/12 aspect-[4/5] rounded-2xl overflow-hidden shadow-md border border-white/90 shrink-0 relative">
+                <div className="w-full md:w-5/12 aspect-[4/5] rounded-2xl overflow-hidden shadow-md border border-(--color-border) shrink-0 relative">
                   <img
                     key={`img-${activeFounder?.id}`}
                     src={activeFounder?.individualImage}
@@ -199,24 +199,24 @@ export function FoundersSection() {
                 <div className="w-full md:w-7/12 flex flex-col justify-center">
                   <div>
                     <div className="mb-3">
-                      <span className="inline-block text-xs font-bold text-[#1E50FF] uppercase tracking-wider bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                      <span className="inline-block text-xs font-bold text-(--color-accent-subtle-text) uppercase tracking-wider bg-(--color-accent-subtle) px-3 py-1 rounded-full border border-(--color-border)">
                         {activeFounder?.role}
                       </span>
                     </div>
 
-                    <h3 className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight mb-4">
+                    <h3 className="text-3xl md:text-4xl font-bold text-(--color-text-primary) tracking-tight mb-4">
                       {activeFounder?.name}
                     </h3>
 
-                    <p className="text-slate-600 leading-relaxed text-base md:text-lg mb-6">
+                    <p className="text-(--color-text-secondary) leading-relaxed text-base md:text-lg mb-6">
                       {activeFounder?.fullBio}
                     </p>
 
                     <div className="flex items-center gap-3">
-                      <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
+                      <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-(--color-surface-elevated) hover:bg-(--color-accent) flex items-center justify-center text-(--color-text-secondary) hover:text-white transition-all duration-300 border border-(--color-border) hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
                         <LinkedinIcon className="w-4 h-4" />
                       </a>
-                      <a href={`mailto:${activeFounder?.email}`} aria-label={`Enviar e-mail para ${activeFounder?.name}`} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
+                      <a href={`mailto:${activeFounder?.email}`} aria-label={`Enviar e-mail para ${activeFounder?.name}`} className="w-10 h-10 rounded-full bg-(--color-surface-elevated) hover:bg-(--color-accent) flex items-center justify-center text-(--color-text-secondary) hover:text-white transition-all duration-300 border border-(--color-border) hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">
                         <Mail className="w-4 h-4" />
                       </a>
                     </div>

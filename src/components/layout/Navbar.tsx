@@ -1,42 +1,107 @@
-import { motion } from 'framer-motion';
-import { Menu, ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ThemeToggle } from '../ui/ThemeToggle';
 import logoIcon from '../../assets/logo/profit_Plogo.png';
 
+const NAV_LINKS = [
+  { label: 'Início', to: '/' },
+  { label: 'Soluções', to: '/solucoes' },
+  { label: 'Sobre nós', to: '/sobre' },
+  { label: 'Contato', to: '/contato' },
+];
+
 export function Navbar() {
-  const navLinks = [
-    { label: 'Início', to: '/' },
-    { label: 'Soluções', to: '/solucoes' },
-    { label: 'Sobre nós', to: '/sobre' },
-    { label: 'Contato', to: '/contato' },
-  ];
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
-    <motion.header
-      initial={{ opacity: 0, y: -16 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="fixed top-0 inset-x-0 z-40 flex items-center justify-between px-6 sm:px-10 lg:px-16 py-4 bg-white/80 backdrop-blur-xl border-b border-slate-100/60"
-    >
-      <Link to="/" className="flex-shrink-0">
-        <img src={logoIcon} alt="Profit" className="h-11 w-auto object-contain" />
-      </Link>
-      <nav className="hidden md:flex items-center gap-10">
-        {navLinks.map(({ label, to }) => (
-          <Link key={label} to={to} className="group relative text-sm text-slate-500 hover:text-slate-900 font-medium transition-colors">
-            {label}
-            <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-[#1E50FF] origin-right scale-x-0 transition-transform duration-300 ease-out group-hover:origin-left group-hover:scale-x-100" />
-          </Link>
-        ))}
-      </nav>
-      <div className="flex items-center gap-3">
-        <Link to="/contato" className="hidden md:inline-flex items-center gap-1.5 text-sm font-bold text-white bg-slate-900 hover:bg-[#1E50FF] px-5 py-2.5 rounded-full transition-all duration-300">
-          Começar <ArrowUpRight className="w-3.5 h-3.5" />
+    <>
+      <motion.header
+        initial={{ opacity: 0, y: -16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 sm:px-10 lg:px-16 py-4 bg-(--color-bg)/80 backdrop-blur-xl border-b border-(--color-border-subtle) transition-colors duration-300"
+      >
+        <Link to="/" className="flex-shrink-0" onClick={closeMobileMenu}>
+          <img src={logoIcon} alt="Profit" className="h-11 w-auto object-contain" />
         </Link>
-        <button className="md:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors">
-          <Menu className="w-5 h-5" />
-        </button>
-      </div>
-    </motion.header>
+
+        {/* Desktop nav */}
+        <nav className="hidden md:flex items-center gap-10">
+          {NAV_LINKS.map(({ label, to }) => (
+            <Link
+              key={label}
+              to={to}
+              className="group relative text-sm text-(--color-text-secondary) hover:text-(--color-text-primary) font-medium transition-colors"
+            >
+              {label}
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-(--color-accent) origin-right scale-x-0 transition-transform duration-300 ease-out group-hover:origin-left group-hover:scale-x-100" />
+            </Link>
+          ))}
+        </nav>
+
+        {/* Desktop actions */}
+        <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
+          <Link
+            to="/contato"
+            className="inline-flex items-center gap-1.5 text-sm font-bold text-(--color-bg) bg-(--color-text-primary) hover:bg-(--color-accent) hover:text-white px-5 py-2.5 rounded-full transition-all duration-300"
+          >
+            Começar <ArrowUpRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        {/* Mobile actions */}
+        <div className="flex items-center gap-2 md:hidden">
+          <ThemeToggle />
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Abrir menu"
+            className="p-2 text-(--color-text-secondary) hover:text-(--color-text-primary) transition-colors"
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+      </motion.header>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-(--color-bg) pt-24 px-6 md:hidden flex flex-col transition-colors duration-300"
+          >
+            <nav className="flex flex-col gap-6 mt-8">
+              {NAV_LINKS.map(({ label, to }) => (
+                <Link
+                  key={label}
+                  to={to}
+                  onClick={closeMobileMenu}
+                  className="text-2xl font-black text-(--color-text-primary) hover:text-(--color-accent) transition-colors"
+                >
+                  {label}
+                </Link>
+              ))}
+              <Link
+                to="/contato"
+                onClick={closeMobileMenu}
+                className="mt-8 inline-flex items-center justify-center gap-2 text-base font-bold text-white bg-(--color-accent) hover:bg-(--color-accent-hover) py-4 rounded-full transition-all"
+              >
+                Começar um projeto <ArrowUpRight className="w-4 h-4" />
+              </Link>
+            </nav>
+            <div className="mt-auto mb-8 pt-6 border-t border-(--color-border) flex items-center justify-between">
+              <span className="text-sm font-semibold text-(--color-text-secondary)">Aparência</span>
+              <ThemeToggle />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

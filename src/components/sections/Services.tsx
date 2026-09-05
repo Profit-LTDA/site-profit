@@ -46,36 +46,37 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative bg-white border border-slate-100 hover:border-[#1E50FF]/30 shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_40px_rgba(30,80,255,0.06)] rounded-3xl p-8 mb-6 cursor-pointer transition-all duration-300"
+      className="group relative bg-(--color-surface-elevated) border border-(--color-border-subtle) hover:border-(--color-accent)/30 shadow-[0_8px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_40px_rgba(30,80,255,0.06)] rounded-3xl p-8 mb-6 cursor-pointer transition-all duration-300"
     >
-      
-      {/* Hover vertical blue line */}
-      <div className="absolute top-8 bottom-8 left-0 w-[4px] bg-[#1E50FF] scale-y-0 group-hover:scale-y-100 origin-center transition-transform duration-300 rounded-r-full" />
+      {/* Hover vertical accent line */}
+      <div className="absolute top-8 bottom-8 left-0 w-[4px] bg-(--color-accent) scale-y-0 group-hover:scale-y-100 origin-center transition-transform duration-300 rounded-r-full" />
 
-      <div className="relative grid grid-cols-[auto_1fr_auto] gap-6 md:gap-10 items-center">
+      <div className="relative flex flex-col md:grid md:grid-cols-[auto_1fr_auto] gap-5 md:gap-10 items-start md:items-center">
         {/* Number */}
-        <span className="text-xs font-black text-slate-200 group-hover:text-[#1E50FF]/40 transition-colors tracking-widest uppercase w-10">{service.number}</span>
+        <span className="text-xs font-black text-(--color-border) group-hover:text-(--color-accent)/40 transition-colors tracking-widest uppercase md:w-10 block">
+          {service.number}
+        </span>
 
         {/* Content */}
         <div>
-          <span className="text-[10px] font-bold text-[#1E50FF] tracking-[0.2em] uppercase mb-2 block">{service.tag}</span>
-          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight text-slate-900 mb-2 group-hover:text-[#1E50FF] transition-colors duration-300">
+          <span className="text-[10px] font-bold text-(--color-accent) tracking-[0.2em] uppercase mb-2 block">{service.tag}</span>
+          <h3 className="text-xl md:text-2xl font-extrabold tracking-tight text-(--color-text-primary) mb-2 group-hover:text-(--color-accent) transition-colors duration-300">
             {service.title}
           </h3>
-          <p className="text-slate-400 leading-relaxed text-sm md:text-base max-w-lg">
+          <p className="text-(--color-text-secondary) leading-relaxed text-sm md:text-base max-w-lg">
             {service.desc}
           </p>
         </div>
 
         {/* Robot + arrow */}
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 self-end md:self-auto w-full md:w-auto justify-between md:justify-start border-t border-(--color-border-subtle) md:border-none pt-4 md:pt-0 mt-2 md:mt-0">
           <img
             src={service.robot}
             alt={service.robotAlt}
-            className="w-16 md:w-24 object-contain drop-shadow-md opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-[opacity,transform] duration-300"
+            className="w-12 md:w-24 object-contain drop-shadow-md opacity-100 md:opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-[opacity,transform] duration-300"
           />
-          <div className="w-10 h-10 rounded-full border border-slate-100 group-hover:border-[#1E50FF] group-hover:bg-[#1E50FF] flex items-center justify-center transition-all duration-300 flex-shrink-0">
-            <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-white transition-colors" />
+          <div className="w-10 h-10 rounded-full border border-(--color-border) group-hover:border-(--color-accent) group-hover:bg-(--color-accent) flex items-center justify-center transition-all duration-300 flex-shrink-0">
+            <ArrowUpRight className="w-4 h-4 text-(--color-text-muted) group-hover:text-white transition-colors" />
           </div>
         </div>
       </div>
@@ -93,16 +94,16 @@ export function Services() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="text-xs font-bold tracking-[0.22em] uppercase text-[#1E50FF] flex items-center gap-2 mb-5"
+            className="text-xs font-bold tracking-[0.22em] uppercase text-(--color-accent) flex items-center gap-2 mb-5"
           >
-            <span className="w-5 h-px bg-[#1E50FF]" /> O que fazemos
+            <span className="w-5 h-px bg-(--color-accent)" /> O que fazemos
           </motion.span>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 leading-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-(--color-text-primary) leading-tight"
           >
             Soluções sob medida<br />para a sua operação.
           </motion.h2>
@@ -112,7 +113,7 @@ export function Services() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-slate-400 text-base max-w-xs md:text-right leading-relaxed"
+          className="text-(--color-text-secondary) text-base max-w-xs md:text-right leading-relaxed"
         >
           Você traz o gargalo.<br />Nós construímos a solução.
         </motion.p>

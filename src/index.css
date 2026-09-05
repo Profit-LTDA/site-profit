@@ -1,13 +1,110 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+/* ─── Dark variant ───────────────────────────────────────────────────────────
+   Tailwind v4: tells the compiler that `dark:` utilities apply when
+   the `.dark` class is present on an ancestor element.              */
+@variant dark (&:where(.dark, .dark *));
+
+/* ─── Typography ─────────────────────────────────────────────────────────── */
 @theme {
   --font-sans: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* ─── Design Tokens (CSS Custom Properties) ──────────────────────────────────
+   All color decisions for the site live here.
+   Components use these tokens via Tailwind's arbitrary-value syntax:
+     bg-(--color-bg), text-(--color-text-primary), etc.             */
+
+:root {
+  /* Backgrounds */
+  --color-bg:               #ffffff;
+  --color-surface:          #f8fafc;
+  --color-surface-elevated: #ffffff;
+
+  /* Borders */
+  --color-border:           #e2e8f0;
+  --color-border-subtle:    #f1f5f9;
+
+  /* Typography */
+  --color-text-primary:     #0f172a;
+  --color-text-secondary:   #64748b;
+  --color-text-muted:       #94a3b8;
+  --color-text-inverted:    #f8fafc;
+
+  /* Accent (brand blue) */
+  --color-accent:           #1E50FF;
+  --color-accent-hover:     #1a45e0;
+  --color-accent-subtle:    #eff6ff;
+  --color-accent-subtle-text: #1E50FF;
+
+  /* Dot grid */
+  --color-dot:              #cbd5e1;
+
+  /* Misc */
+  --color-overlay-dark:     rgba(15, 23, 42, 0.95);
+  --color-section-dark:     #020617;
+  --color-section-dark-surface: #0f172a;
+  --color-section-dark-text: #f8fafc;
+  --color-section-dark-secondary: #94a3b8;
+  --color-section-dark-muted: #64748b;
+  --color-section-dark-border: rgba(255, 255, 255, 0.10);
+  --color-success:          #047857;
+}
+
+.dark {
+  /* Backgrounds */
+  --color-bg:               #0f172a;
+  --color-surface:          #1e293b;
+  --color-surface-elevated: #293548;
+
+  /* Borders */
+  --color-border:           #334155;
+  --color-border-subtle:    #1e293b;
+
+  /* Typography */
+  --color-text-primary:     #f1f5f9;
+  --color-text-secondary:   #94a3b8;
+  --color-text-muted:       #64748b;
+  --color-text-inverted:    #0f172a;
+
+  /* Accent (slightly lighter for dark bg readability) */
+  --color-accent:           #4f7aff;
+  --color-accent-hover:     #6b8fff;
+  --color-accent-subtle:    rgba(79, 122, 255, 0.12);
+  --color-accent-subtle-text: #93b4ff;
+
+  /* Dot grid */
+  --color-dot:              #1e293b;
+
+  /* Misc */
+  --color-overlay-dark:     rgba(15, 23, 42, 0.97);
+  --color-section-dark:     #020617;
+  --color-section-dark-surface: #0f172a;
+  --color-section-dark-text: #f8fafc;
+  --color-section-dark-secondary: #94a3b8;
+  --color-section-dark-muted: #64748b;
+  --color-section-dark-border: rgba(255, 255, 255, 0.10);
+  --color-success:          #6ee7b7;
+}
+
+/* ─── Base styles ─────────────────────────────────────────────────────────── */
+
 * {
   box-sizing: border-box;
 }
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  background-color: var(--color-bg);
+}
+
+/* ─── Accessibility: Reduced Motion ──────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {
   html {

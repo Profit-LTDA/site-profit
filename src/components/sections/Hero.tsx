@@ -2,6 +2,7 @@ import { motion, type Variants } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, Sparkles } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { Typewriter } from '../Typewriter';
+import { Magnetic } from '../ui/Magnetic';
 import robotWaving from '../../assets/robot/robot_acenando (1).png';
 
 function HeroHeadline() {
@@ -21,8 +22,8 @@ function HeroHeadline() {
       initial="hidden"
       animate="visible"
     >
-      <motion.span variants={lineVariants} className="block text-slate-900">Pense além.</motion.span>
-      <motion.span variants={lineVariants} className="block text-slate-900">Escale</motion.span>
+      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">Pense além.</motion.span>
+      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">Escale</motion.span>
       <motion.span
         variants={{
           hidden: { opacity: 0 },
@@ -32,8 +33,8 @@ function HeroHeadline() {
       >
         <Typewriter
           texts={['resultados.', 'negócios.', 'o futuro.', 'times.']}
-          typedColor="#1E50FF"
-          color="#0f172a"
+          typedColor="var(--color-accent)"
+          color="var(--color-text-primary)"
           cursorChar="|"
           showCursor
           ease={{ type: 'tween', duration: 0.07, delay: 2, ease: 'easeInOut' } as any}
@@ -53,17 +54,18 @@ function HeroHeadline() {
 
 export function Hero() {
   return (
-    <section
-      className="relative min-h-screen flex flex-col pt-[72px] overflow-hidden"
-    >
+    <section className="relative min-h-screen flex flex-col pt-[72px] bg-(--color-bg) transition-colors duration-300">
       {/* Fine dot grid */}
       <div
-        className="absolute inset-0 opacity-[0.4]"
-        style={{ backgroundImage: 'radial-gradient(circle, #cbd5e1 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+        className="absolute inset-0 opacity-[0.5]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, var(--color-dot) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
       />
 
-      {/* Subtle warm bottom left */}
-      <div className="pointer-events-none absolute bottom-0 -left-20 w-[600px] h-[600px] bg-[#1E50FF] rounded-full blur-[150px] opacity-[0.15]" />
+      {/* Accent glow */}
+      <div className="pointer-events-none absolute bottom-0 -left-20 w-[600px] h-[600px] bg-(--color-accent) rounded-full blur-[150px] opacity-[0.1]" />
 
       {/* Content grid */}
       <div className="relative flex-1 flex items-center max-w-screen-xl mx-auto w-full px-6 sm:px-10 lg:px-16 py-20 lg:py-0">
@@ -75,10 +77,10 @@ export function Hero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 rounded-full px-4 py-1.5 mb-10"
+              className="inline-flex items-center gap-2 bg-(--color-accent-subtle) border border-(--color-border) rounded-full px-4 py-1.5 mb-10"
             >
-              <Sparkles className="w-3 h-3 text-[#1E50FF]" />
-              <span className="text-xs font-bold text-[#1E50FF] tracking-wider uppercase">Profit · Soluções de Software</span>
+              <Sparkles className="w-3 h-3 text-(--color-accent)" />
+              <span className="text-xs font-bold text-(--color-accent-subtle-text) tracking-wider uppercase">Profit · Soluções de Software</span>
             </motion.div>
 
             <HeroHeadline />
@@ -87,7 +89,7 @@ export function Hero() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.9 }}
-              className="mt-8 text-base md:text-lg text-slate-400 leading-relaxed max-w-md"
+              className="mt-8 text-base md:text-lg text-(--color-text-secondary) leading-relaxed max-w-md"
             >
               Nascemos da vontade de construir juntos. Unimos engenharia de software, visão de negócio e personalização para transformar problemas reais em soluções.
             </motion.p>
@@ -98,12 +100,16 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 1.1 }}
               className="mt-10 flex flex-wrap items-center gap-4"
             >
-              <Link to="/contato" className="inline-flex items-center gap-2 bg-[#1E50FF] hover:bg-blue-700 text-white text-sm font-bold px-7 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
-                Fale com a gente <ArrowUpRight className="w-4 h-4" />
-              </Link>
-              <Link to="/#what-we-do" className="inline-flex items-center gap-1.5 text-sm font-semibold text-slate-500 hover:text-slate-900 transition-colors">
-                Ver soluções <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+              <Magnetic strength={0.2}>
+                <Link to="/contato" className="inline-flex items-center gap-2 bg-(--color-accent) hover:bg-(--color-accent-hover) text-white text-sm font-bold px-7 py-4 rounded-full transition-colors shadow-lg shadow-blue-500/25">
+                  Fale com a gente <ArrowUpRight className="w-4 h-4" />
+                </Link>
+              </Magnetic>
+              <Magnetic strength={0.1}>
+                <Link to="/#what-we-do" className="inline-flex items-center gap-1.5 text-sm font-semibold text-(--color-text-secondary) hover:text-(--color-text-primary) transition-colors">
+                  Ver soluções <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </Magnetic>
             </motion.div>
 
             <motion.div
@@ -113,13 +119,13 @@ export function Hero() {
               className="mt-14 flex items-center gap-4 flex-wrap"
             >
               <div className="flex -space-x-2">
-                {['#f472b6','#60a5fa','#34d399','#fbbf24'].map(color => (
-                  <div key={color} className="w-8 h-8 rounded-full border-2 border-white" style={{ backgroundColor: color }} />
+                {['#f472b6', '#60a5fa', '#34d399', '#fbbf24'].map(color => (
+                  <div key={color} className="w-8 h-8 rounded-full border-2 border-(--color-bg)" style={{ backgroundColor: color }} />
                 ))}
               </div>
               <div>
-                <p className="text-sm font-bold text-slate-900">Uma equipe formada construindo</p>
-                <p className="text-xs text-slate-400">Engenharia, negócio e comunicação colocados em prática.</p>
+                <p className="text-sm font-bold text-(--color-text-primary)">Uma equipe formada construindo</p>
+                <p className="text-xs text-(--color-text-muted)">Engenharia, negócio e comunicação colocados em prática.</p>
               </div>
             </motion.div>
           </div>
@@ -156,8 +162,8 @@ export function Hero() {
         transition={{ delay: 2 }}
         className="relative pb-8 flex justify-center"
       >
-        <div className="flex flex-col items-center gap-2 text-slate-300">
-          <div className="w-px h-8 bg-gradient-to-b from-transparent to-slate-300" />
+        <div className="flex flex-col items-center gap-2 text-(--color-text-muted)">
+          <div className="w-px h-8 bg-gradient-to-b from-transparent to-(--color-text-muted)" />
           <span className="text-[10px] tracking-widest uppercase font-bold">Scroll</span>
         </div>
       </motion.div>

@@ -6,6 +6,7 @@ import { About } from './pages/About';
 import { CaseStudy } from './pages/CaseStudy';
 import { Solutions } from './pages/Solutions';
 import { Contact } from './pages/Contact';
+import { CustomCursor } from './components/ui/CustomCursor';
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -25,6 +26,7 @@ function App() {
   return (
     <MotionConfig reducedMotion="user">
       <ScrollToTop />
+      <CustomCursor />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />

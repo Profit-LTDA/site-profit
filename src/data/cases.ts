@@ -32,7 +32,7 @@ export const CASES: CaseStudy[] = [
     title: 'Conformidade de fornecedores com o contexto de cada empresa.',
     eyebrow: 'Hackathon WeHandle', sector: 'Avaliação de fornecedores',
     summary: 'Dados públicos, APIs e um chatbot para entender prioridades e personalizar a avaliação de fornecedores. A Profit foi campeã do Hackathon WeHandle com essa solução.',
-    image: wehandleTeamPhoto, period: 'Julho', accent: '#1E50FF',
+    image: wehandleTeamPhoto, period: 'Julho', accent: 'var(--color-accent)',
     gallery: [
       { src: wehandleWorkingPhoto, alt: 'Sócios da Profit trabalhando durante o Hackathon WeHandle', caption: 'Trabalho em equipe durante o desenvolvimento da solução.' },
       { src: wehandleThinkingPhoto, alt: 'Sócio da Profit analisando a solução durante o Hackathon WeHandle', caption: 'Análise das decisões técnicas e dos critérios de negócio.' },
