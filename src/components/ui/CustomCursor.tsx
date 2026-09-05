@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 
 export function CustomCursor() {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible] = useState(() => (
+    typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches
+  ));
   const [isHovering, setIsHovering] = useState(false);
   
   const cursorX = useMotionValue(-100);
@@ -13,11 +15,7 @@ export function CustomCursor() {
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    // Check if device supports hover (mouse)
-    const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
-    if (isTouchDevice) return;
-    
-    setIsVisible(true);
+    if (!isVisible) return;
 
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
@@ -51,7 +49,7 @@ export function CustomCursor() {
       window.removeEventListener('mouseover', handleMouseOver);
       document.body.classList.remove('cursor-none');
     };
-  }, [cursorX, cursorY]);
+  }, [cursorX, cursorY, isVisible]);
 
   if (!isVisible) return null;
 

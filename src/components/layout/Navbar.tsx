@@ -4,7 +4,7 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import logoIcon from '../../assets/logo/profit_Plogo.png';
-import logoIconWhite from '../../assets/logo/profit_Plogo_branca.png';
+import logoIconWhite from '../../assets/logo/profit_Plogo_branca.webp';
 
 const NAV_LINKS = [
   { label: 'Início', to: '/' },

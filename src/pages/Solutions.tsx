@@ -1,12 +1,8 @@
-import { useEffect } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowDown, ArrowRight, ArrowUpRight, Braces, ChartNoAxesCombined, GitMerge, Workflow } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { Navbar } from '../components/layout/Navbar';
-import { Footer } from '../components/layout/Footer';
-import { ChatWidget } from '../components/features/ChatWidget';
 import { CASES } from '../data/cases';
-import robotNotebook from '../assets/robot/robot_notebook.png';
+import robotNotebook from '../assets/robot/robot_notebook.webp';
 
 const SOLUTIONS = [
   {
@@ -40,20 +36,8 @@ const SOLUTIONS = [
 ];
 
 export function Solutions() {
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
-
-  useEffect(() => {
-    document.title = 'Soluções e cases | Profit';
-    return () => { document.title = 'Profit'; };
-  }, []);
-
   return (
-    <div className="min-h-screen bg-(--color-bg) font-sans text-(--color-text-primary) overflow-x-hidden selection:bg-(--color-accent)/20 selection:text-(--color-accent) transition-colors duration-300">
-      <motion.div className="fixed top-0 left-0 right-0 h-[3px] bg-(--color-accent) origin-left z-50" style={{ scaleX }} />
-      <Navbar />
-
-      <main>
+    <main>
         <section className="relative min-h-[82vh] flex items-center pt-40 lg:pt-44 pb-24 overflow-hidden">
           <div className="absolute inset-0 opacity-50 pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle, var(--color-dot) 1px, transparent 1px)', backgroundSize: '28px 28px' }} />
           <div className="absolute -right-40 -top-40 w-[680px] h-[680px] bg-(--color-accent)/15 rounded-full blur-[150px] pointer-events-none" />
@@ -110,7 +94,7 @@ export function Solutions() {
               <div>
                 <span className="text-xs font-bold tracking-[0.22em] uppercase text-(--color-accent) flex items-center gap-2 mb-5"><span className="w-5 h-px bg-(--color-accent)" /> Aplicações práticas</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.02] text-(--color-text-primary)">Soluções em contexto.</h2>
-                <p className="text-(--color-text-secondary) mt-6 max-w-xl leading-relaxed"><strong className="text-(--color-text-primary)">Projetos que ajudaram a formar nossa história.</strong> Conheça a solução campeã da WeHandle e a plataforma de treinamento com IA apresentada no Hackathon Hack2L.</p>
+                <p className="text-(--color-text-secondary) mt-6 max-w-xl leading-relaxed"><strong className="text-(--color-text-primary)">Projetos que ajudaram a formar nossa história.</strong> Conheça a trajetória campeã no Hackathon WeHandle e a plataforma de treinamento com IA apresentada no Hackathon Hack2L.</p>
               </div>
             </div>
 
@@ -135,9 +119,6 @@ export function Solutions() {
             <Link to="/contato" className="inline-flex items-center justify-center gap-2 bg-(--color-surface-elevated) hover:bg-(--color-accent) border border-(--color-border) hover:border-(--color-accent) text-(--color-text-primary) hover:text-white text-sm font-bold px-7 py-4 rounded-full transition-all shadow-sm">Conversar com a Profit <ArrowUpRight className="w-4 h-4" /></Link>
           </div>
         </section>
-      </main>
-
-      <Footer /><ChatWidget />
-    </div>
+    </main>
   );
 }

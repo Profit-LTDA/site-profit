@@ -2,18 +2,7 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <script>
-      (() => {
-        try {
-          const saved = localStorage.getItem('profit-theme');
-          const theme = saved === 'light' || saved === 'dark'
-            ? saved
-            : (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-          document.documentElement.classList.toggle('dark', theme === 'dark');
-          document.documentElement.style.colorScheme = theme;
-        } catch {}
-      })();
-    </script>
+    <script src="/theme-init.js"></script>
     <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Conheça a Profit: engenharia de software, visão de negócio e uma equipe formada na construção de soluções e em desafios de hackathons." />
