@@ -22,8 +22,8 @@ function HeroHeadline() {
       initial="hidden"
       animate="visible"
     >
-      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">Pense além.</motion.span>
-      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">Escale</motion.span>
+      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">Tecnologia</motion.span>
+      <motion.span variants={lineVariants} className="block text-(--color-text-primary)">sob medida para</motion.span>
       <motion.span
         variants={{
           hidden: { opacity: 0 },
@@ -32,7 +32,7 @@ function HeroHeadline() {
         className="block whitespace-nowrap"
       >
         <Typewriter
-          texts={['resultados.', 'negócios.', 'o futuro.', 'times.']}
+          texts={['empresas.', 'operações.', 'negócios.']}
           typedColor="var(--color-accent)"
           color="var(--color-text-primary)"
           cursorChar="|"
@@ -80,7 +80,7 @@ export function Hero() {
               className="inline-flex items-center gap-2 bg-(--color-accent-subtle) border border-(--color-border) rounded-full px-4 py-1.5 mb-10"
             >
               <Sparkles className="w-3 h-3 text-(--color-accent)" />
-              <span className="text-xs font-bold text-(--color-accent-subtle-text) tracking-wider uppercase">Profit · Soluções de Software</span>
+              <span className="text-xs font-bold text-(--color-accent-subtle-text) tracking-wider uppercase">Soluções tecnológicas para empresas</span>
             </motion.div>
 
             <HeroHeadline />
@@ -91,7 +91,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.9 }}
               className="mt-8 text-base md:text-lg text-(--color-text-secondary) leading-relaxed max-w-md"
             >
-              Nascemos da vontade de construir juntos. Unimos engenharia de software, visão de negócio e personalização para transformar problemas reais em soluções.
+              A Profit desenvolve software, automações e produtos digitais para transformar desafios operacionais de empresas em soluções úteis, personalizadas e preparadas para evoluir.
             </motion.p>
 
             <motion.div
@@ -124,8 +124,8 @@ export function Hero() {
                 ))}
               </div>
               <div>
-                <p className="text-sm font-bold text-(--color-text-primary)">Uma equipe formada construindo</p>
-                <p className="text-xs text-(--color-text-muted)">Engenharia, negócio e comunicação colocados em prática.</p>
+                <p className="text-sm font-bold text-(--color-text-primary)">Uma equipe preparada para construir</p>
+                <p className="text-xs text-(--color-text-muted)">Capacidade técnica e visão de negócio validadas em desafios de inovação.</p>
               </div>
             </motion.div>
           </div>

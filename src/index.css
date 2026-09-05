@@ -54,13 +54,13 @@
 
 .dark {
   /* Backgrounds */
-  --color-bg:               #0f172a;
-  --color-surface:          #1e293b;
-  --color-surface-elevated: #293548;
+  --color-bg:               #000000;
+  --color-surface:          rgba(79, 122, 255, 0.035);
+  --color-surface-elevated: rgba(79, 122, 255, 0.065);
 
   /* Borders */
-  --color-border:           #334155;
-  --color-border-subtle:    #1e293b;
+  --color-border:           rgba(79, 122, 255, 0.48);
+  --color-border-subtle:    rgba(79, 122, 255, 0.24);
 
   /* Typography */
   --color-text-primary:     #f1f5f9;
@@ -75,7 +75,7 @@
   --color-accent-subtle-text: #93b4ff;
 
   /* Dot grid */
-  --color-dot:              #1e293b;
+  --color-dot:              rgba(79, 122, 255, 0.22);
 
   /* Misc */
   --color-overlay-dark:     rgba(15, 23, 42, 0.97);

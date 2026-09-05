@@ -4,6 +4,7 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ThemeToggle } from '../ui/ThemeToggle';
 import logoIcon from '../../assets/logo/profit_Plogo.png';
+import logoIconWhite from '../../assets/logo/profit_Plogo_branca.png';
 
 const NAV_LINKS = [
   { label: 'Início', to: '/' },
@@ -24,8 +25,26 @@ export function Navbar() {
         transition={{ duration: 0.5 }}
         className="fixed top-0 inset-x-0 z-50 flex items-center justify-between px-6 sm:px-10 lg:px-16 py-4 bg-(--color-bg)/80 backdrop-blur-xl border-b border-(--color-border-subtle) transition-colors duration-300"
       >
-        <Link to="/" className="flex-shrink-0" onClick={closeMobileMenu}>
-          <img src={logoIcon} alt="Profit" className="h-11 w-auto object-contain" />
+        <Link
+          to="/"
+          aria-label="Profit — página inicial"
+          className="relative block h-11 w-[78px] flex-shrink-0"
+          onClick={closeMobileMenu}
+        >
+          <img
+            src={logoIcon}
+            alt=""
+            aria-hidden="true"
+            decoding="sync"
+            className="absolute inset-0 h-11 w-auto object-contain opacity-100 transition-opacity duration-200 dark:opacity-0"
+          />
+          <img
+            src={logoIconWhite}
+            alt=""
+            aria-hidden="true"
+            decoding="sync"
+            className="absolute left-1/2 top-1/2 h-11 w-11 -translate-x-1/2 -translate-y-1/2 scale-[0.84] object-contain opacity-0 transition-opacity duration-200 dark:opacity-100"
+          />
         </Link>
 
         {/* Desktop nav */}
