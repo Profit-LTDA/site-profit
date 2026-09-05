@@ -30,16 +30,14 @@ export interface Founder {
   name: string;
   role: string;
   fullBio: string;
-  quote: string;
   individualImage: string;
   linkedin: string;
   email: string;
 }
 
 export const TEAM_OVERVIEW = {
-  groupImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1200&q=80",
-  title: "A equipe por trás da inovação",
-  missionQuote: "Tecnologia sob medida feita por pessoas, para resolver problemas reais de empresas.",
+  title: "Perfis diferentes, uma construção em comum",
+  missionQuote: "O alinhamento de ideias e o trabalho em equipe consolidaram uma atuação que combina engenharia, visão de negócio e comunicação.",
 };
 
 export const FOUNDERS: Founder[] = [
@@ -48,7 +46,6 @@ export const FOUNDERS: Founder[] = [
     name: 'Felipe Terossi',
     role: 'Sócio & Fundador',
     fullBio: 'Estrategista de negócios e focado em resolver problemas operacionais crônicos. Acredita que a tecnologia deve ser invisível, enquanto o resultado é o que realmente brilha no final do mês.',
-    quote: 'Tecnologia eficiente é aquela que resolve o problema sem criar novos.',
     individualImage: felipePhoto,
     linkedin: 'https://www.linkedin.com/in/felipe-terossi-5096163b8/',
     email: 'felipeterossi2@gmail.com'
@@ -58,7 +55,6 @@ export const FOUNDERS: Founder[] = [
     name: 'Kenzo Osako',
     role: 'Sócio & Fundador',
     fullBio: 'Engenheiro de Software apaixonado por criar arquiteturas escaláveis. Lidera a inteligência técnica da Profit garantindo entregas robustas e sob medida.',
-    quote: 'Arquiteturas escaláveis são a fundação invisível dos grandes negócios.',
     individualImage: kenzoPhoto,
     linkedin: 'https://www.linkedin.com/in/kenzoosako/',
     email: 'kenzo.o.camargo@gmail.com'
@@ -68,7 +64,6 @@ export const FOUNDERS: Founder[] = [
     name: 'Gabriel Felix',
     role: 'Sócio & Fundador',
     fullBio: 'Engenheiro de Software focado em transformar necessidades de negócio em produtos digitais robustos, intuitivos e escaláveis. Atua da arquitetura à experiência final, conectando decisões técnicas a soluções que geram valor real para quem utiliza.',
-    quote: 'A complexidade deve ficar nos bastidores. Para o usuário, apenas a simplicidade.',
     individualImage: felixPhoto,
     linkedin: 'https://www.linkedin.com/in/gabriel-morais-felix-017152286/',
     email: 'fgabrielmorais05@gmail.com'
@@ -78,7 +73,6 @@ export const FOUNDERS: Founder[] = [
     name: 'Arthur Miele',
     role: 'Sócio & Fundador',
     fullBio: 'Analista de dados e estrategista em infraestrutura. Seu objetivo é estruturar o oceano de dados das PMEs em relatórios pragmáticos e inteligentes.',
-    quote: 'Decisões brilhantes nascem de dados organizados e pragmáticos.',
     individualImage: arthurPhoto,
     linkedin: 'https://www.linkedin.com/in/arthur-malveste-5008842aa/',
     email: 'arthurmielemalveste@gmail.com'
@@ -88,7 +82,6 @@ export const FOUNDERS: Founder[] = [
     name: 'Hyago Sampaio',
     role: 'Sócio & Fundador',
     fullBio: 'Engenheiro de automação, conectando APIs e eliminando tarefas repetitivas. Garante que os processos rodem no piloto automático com precisão.',
-    quote: 'Se uma tarefa é repetitiva, ela não deveria ser feita por um humano.',
     individualImage: hyagoPhoto,
     linkedin: 'https://www.linkedin.com/in/hyago-sampaio-alves/',
     email: 'hyago.spalves@gmail.com'
@@ -164,14 +157,11 @@ export function FoundersSection() {
                 className="w-full flex flex-col"
               >
                 {/* Team Image */}
-                <div className="w-full aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden shadow-md border border-white/90 mb-8 relative">
-                  <img 
-                    src={TEAM_OVERVIEW.groupImage}
-                    alt="Equipe Profit"
-                    loading="lazy"
-                    decoding="async"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                  />
+                <div className="grid grid-cols-2 sm:grid-cols-5 gap-4 mb-10">
+                  {FOUNDERS.map((member) => <button key={member.id} type="button" onClick={() => setActiveId(member.id)} className="text-left group">
+                    <img src={member.individualImage} alt={member.name} loading="lazy" decoding="async" className="w-full aspect-[4/5] rounded-xl object-cover" />
+                    <span className="block mt-3 text-sm font-semibold group-hover:text-[#1E50FF]">{member.name}</span>
+                  </button>)}
                 </div>
                 
                 {/* Team Footer Content */}
@@ -221,10 +211,6 @@ export function FoundersSection() {
                     <p className="text-slate-600 leading-relaxed text-base md:text-lg mb-6">
                       {activeFounder?.fullBio}
                     </p>
-
-                    <div className="p-4 rounded-xl bg-slate-50/80 border border-slate-200/50 text-slate-700 italic text-sm mb-8">
-                      "{activeFounder?.quote}"
-                    </div>
 
                     <div className="flex items-center gap-3">
                       <a href={activeFounder?.linkedin} className="w-10 h-10 rounded-full bg-white hover:bg-[#1E50FF] flex items-center justify-center text-slate-600 hover:text-white transition-all duration-300 border border-slate-200 hover:border-transparent shadow-sm hover:shadow-md hover:scale-105">

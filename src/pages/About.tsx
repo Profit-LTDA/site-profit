@@ -14,33 +14,33 @@ import robotWaving from '../assets/robot/robot_acenando (1).png';
 
 const TIMELINE_STEPS = [
   {
-    year: '2022',
-    title: 'O Nascimento da Ideia',
-    desc: 'Percebemos que as PMEs estavam reféns de softwares engessados e processos manuais. Decidimos que a tecnologia deveria se adaptar ao negócio, e não o contrário.',
+    year: 'A origem',
+    title: 'Alinhamento de ideias',
+    desc: 'Profissionais com interesse em tecnologia, desenvolvimento de software e empreendedorismo reuniram competências complementares para construir projetos próprios e gerar valor por meio de soluções digitais.',
     robot: robotIdea,
     tag: 'Origem',
     accent: '#1E50FF',
   },
   {
-    year: '2023',
-    title: 'Primeiras Soluções',
-    desc: 'Lançamos nossos primeiros sistemas sob medida, validando nossa abordagem "Problem Driven" construindo a quatro mãos com nossos clientes fundadores.',
+    year: 'WeHandle · Julho',
+    title: 'WeHandle: contexto antes dos critérios',
+    desc: 'O desafio era avaliar a conformidade de fornecedores com dados públicos e APIs. A equipe desenvolveu uma análise personalizada, guiada pelo contexto da contratante e por um chatbot que mapeava prioridades. A proposta conquistou o primeiro lugar.',
     robot: robotNotebook,
     tag: 'Desenvolvimento',
     accent: '#0284c7',
   },
   {
-    year: '2024',
-    title: 'Expansão e Integrações',
-    desc: 'Começamos a integrar IA e pipelines de dados para automatizar tarefas repetitivas de forma pragmática, elevando exponencialmente o ROI entregue a cada parceiro.',
+    year: 'Hack2L · Agosto',
+    title: 'Uma ideia ganha visão de produto',
+    desc: 'No Hackathon Hack2L, a equipe estruturou uma plataforma de treinamento com IA para cobrança: trilhas, quizzes e simulações por voz. O trabalho reuniu modelo de negócio, proposta de valor e estratégia, com reconhecimento pela oratória em agosto.',
     robot: robotChat,
     tag: 'Inovação & IA',
     accent: '#7c3aed',
   },
   {
     year: 'Hoje',
-    title: 'O Tech Studio',
-    desc: 'Um estúdio de tecnologia sólido, atuando como o braço de inteligência técnica de diversas empresas e moldando o futuro da eficiência operacional.',
+    title: 'A construção da Profit',
+    desc: 'Os projetos revelaram uma combinação de conhecimento técnico, visão de negócio, adaptação e comunicação. A Profit tomou forma nesse processo coletivo, com o propósito de transformar problemas reais em produtos de tecnologia.',
     robot: robotWaving,
     tag: 'Presente',
     accent: '#059669',
@@ -299,7 +299,7 @@ export function About() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter text-slate-900 leading-[1.1] mb-6"
             >
-              Tecnologia feita por pessoas, para resolver problemas de pessoas.
+              Do alinhamento de ideias à construção de soluções em equipe.
             </motion.h1>
 
             <motion.p
@@ -308,7 +308,7 @@ export function About() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-lg text-slate-500 leading-relaxed max-w-2xl mx-auto"
             >
-              Nós fundamos a Profit porque acreditamos que as Pequenas e Médias Empresas merecem a mesma tecnologia de ponta e arquitetura de elite das gigantes corporativas.
+              A Profit surgiu do alinhamento entre profissionais com perfis complementares, conhecimento técnico e visão de negócio. Nos hackathons, a equipe encontrou um ambiente para validar ideias, aprender e construir soluções para problemas reais.
             </motion.p>
           </div>
 
@@ -316,6 +316,15 @@ export function About() {
           <TimelineSection />
 
           {/* Founders Animated Section */}
+          <section className="mb-24 grid md:grid-cols-2 gap-10">
+            {[
+              ['Engenharia e experimentação', 'Transformar uma pergunta em uma solução exige construir, testar ideias e ajustar o caminho em conjunto.'],
+              ['Contexto e personalização', 'Na WeHandle, aprendemos a considerar o setor e as prioridades da empresa antes de definir os critérios de uma solução.'],
+              ['Visão de negócio', 'Nos projetos desenvolvidos, proposta de valor, modelo de negócio e estratégia passaram a fazer parte do trabalho desde o início.'],
+              ['Comunicação e colaboração', 'Apresentar uma ideia com clareza e combinar habilidades diferentes são partes do processo de construir um produto.'],
+            ].map(([title, text]) => <article key={title} className="border-t border-slate-200 pt-6"><h2 className="text-2xl font-bold mb-4">{title}</h2><p className="text-base text-slate-600 leading-relaxed">{text}</p></article>)}
+          </section>
+          <div className="mb-20 text-center"><a href="/solucoes#cases" className="font-bold text-[#1E50FF] hover:underline">Conheça os dois projetos que marcaram essa jornada →</a></div>
           <FoundersSection />
           {/* Call to action at the bottom */}
           <motion.div

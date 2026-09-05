@@ -1,17 +1,15 @@
 import { useEffect, useState, type FormEvent } from 'react';
-import { ArrowUpRight, BriefcaseBusiness, Camera, CheckCircle2, Code2, Mail, Send } from 'lucide-react';
+import { ArrowUpRight, Camera, CheckCircle2, Mail, Send } from 'lucide-react';
 import { Navbar } from '../components/layout/Navbar';
 import { Footer } from '../components/layout/Footer';
 import { ChatWidget } from '../components/features/ChatWidget';
 import { FOUNDERS } from '../components/sections/FoundersSection';
 import robotChat from '../assets/robot/robot_chat.png';
 
-const CONTACT_EMAIL = 'contato@profitsoftware.com.br';
+const CONTACT_EMAIL = 'profit.ltda0@gmail.com';
 
 const SOCIALS = [
-  { name: 'LinkedIn', handle: 'Profit LTDA', href: 'https://www.linkedin.com/company/profit-ltda', icon: BriefcaseBusiness },
-  { name: 'Instagram', handle: '@profit.ltda', href: 'https://www.instagram.com/profit.ltda', icon: Camera },
-  { name: 'GitHub', handle: 'Profit-LTDA', href: 'https://github.com/Profit-LTDA', icon: Code2 },
+  { name: 'Instagram', handle: '@profit.solucoes', href: 'https://www.instagram.com/profit.solucoes/', icon: Camera },
 ];
 
 const TEAM_ROLES: Record<string, string> = {

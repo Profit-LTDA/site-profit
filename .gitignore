@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Originais de mídia; o site versiona as cópias WebP otimizadas
+src/assets/hackathons/**/*.jpg
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

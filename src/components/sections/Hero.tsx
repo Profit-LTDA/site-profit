@@ -89,7 +89,7 @@ export function Hero() {
               transition={{ duration: 0.7, delay: 0.9 }}
               className="mt-8 text-base md:text-lg text-slate-400 leading-relaxed max-w-md"
             >
-              Eliminamos processos manuais e gargalos da sua empresa. A tecnologia deve se adaptar ao seu negócio, nunca o contrário.
+              Nascemos da vontade de construir juntos. Unimos engenharia de software, visão de negócio e personalização para transformar problemas reais em soluções.
             </motion.p>
 
             <motion.div
@@ -118,8 +118,8 @@ export function Hero() {
                 ))}
               </div>
               <div>
-                <p className="text-sm font-bold text-slate-900">+120 empresas atendidas</p>
-                <p className="text-xs text-slate-400">em 12 segmentos diferentes</p>
+                <p className="text-sm font-bold text-slate-900">Uma equipe formada construindo</p>
+                <p className="text-xs text-slate-400">Engenharia, negócio e comunicação colocados em prática.</p>
               </div>
             </motion.div>
           </div>

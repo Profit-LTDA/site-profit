@@ -33,9 +33,9 @@ const SOLUTIONS = [
   {
     number: '04',
     icon: ChartNoAxesCombined,
-    title: 'Dados e inteligência',
-    description: 'Informação dispersa se transforma em indicadores claros, alertas úteis e apoio real para a tomada de decisão.',
-    tags: ['Dashboards', 'Pipelines', 'Otimização'],
+    title: 'Inteligência artificial aplicada',
+    description: 'Conversas guiadas, personalização e simulações para apoiar decisões e aprendizagem, partindo do contexto de cada empresa.',
+    tags: ['Chatbots', 'Personalização', 'Simulações por voz'],
   },
 ];
 
@@ -110,7 +110,7 @@ export function Solutions() {
               <div>
                 <span className="text-xs font-bold tracking-[0.22em] uppercase text-[#1E50FF] flex items-center gap-2 mb-5"><span className="w-5 h-px bg-[#1E50FF]" /> Aplicações práticas</span>
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[1.02]">Soluções em contexto.</h2>
-                <p className="text-slate-500 mt-6 max-w-xl leading-relaxed"><strong className="text-slate-700">Cases para entender, impactos para imaginar.</strong> Exemplos demonstrativos de como nossas frentes de atuação podem trabalhar juntas em diferentes operações.</p>
+                <p className="text-slate-500 mt-6 max-w-xl leading-relaxed"><strong className="text-slate-700">Projetos que ajudaram a formar nossa história.</strong> Conheça a solução campeã da WeHandle e a plataforma de treinamento com IA apresentada no Hackathon Hack2L.</p>
               </div>
             </div>
 
@@ -119,13 +119,13 @@ export function Solutions() {
                 <motion.div key={item.slug} initial={{ opacity: 0, y: 14 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.06 }}>
                   <Link to={`/cases/${item.slug}`} className="group grid md:grid-cols-[56px_minmax(0,1fr)_220px] gap-7 md:gap-12 items-center py-12 md:py-14 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1E50FF] rounded-sm">
                     <span className="text-sm font-black text-slate-300">/{item.index}</span>
-                    <div><div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] mb-3" style={{ color: item.accent }}><span>{item.sector}</span><span className="w-1 h-1 rounded-full bg-current" /><span className="text-slate-400">{item.eyebrow}</span></div><h3 className="text-xl md:text-2xl font-extrabold tracking-tight group-hover:text-[#1E50FF] transition-colors">{item.title}</h3><p className="text-sm text-slate-500 leading-relaxed mt-3 max-w-2xl">{item.summary}</p></div>
-                    <div className="ml-auto w-full max-w-[220px] md:border-l md:border-slate-200 md:pl-8 flex items-center justify-end gap-6 text-right"><div><strong className="block text-3xl font-black tracking-tighter">{item.metric.value}</strong><span className="text-xs text-slate-400">{item.metric.label}</span></div><span className="w-11 h-11 rounded-full bg-slate-100 group-hover:bg-[#1E50FF] text-slate-500 group-hover:text-white flex items-center justify-center transition-colors shrink-0"><ArrowRight className="w-4 h-4" /></span></div>
+                    <div><div className="flex flex-wrap items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] mb-3" style={{ color: item.accent }}><span>{item.sector}</span><span className="w-1 h-1 rounded-full bg-current" /><span className="text-slate-400">{item.eyebrow}</span><span className="w-1 h-1 rounded-full bg-current" /><span className="text-slate-400">{item.period}</span></div><h3 className="text-xl md:text-2xl font-extrabold tracking-tight group-hover:text-[#1E50FF] transition-colors">{item.title}</h3><p className="text-sm text-slate-500 leading-relaxed mt-3 max-w-2xl">{item.summary}</p></div>
+                    <div className="ml-auto w-full max-w-[220px] md:border-l md:border-slate-200 md:pl-8 flex items-center justify-end gap-6 text-right"><div><strong className="block text-2xl font-black tracking-tight">{item.metric.value}</strong><span className="text-xs text-slate-400">{item.metric.label}</span></div><span className="w-11 h-11 rounded-full bg-slate-100 group-hover:bg-[#1E50FF] text-slate-500 group-hover:text-white flex items-center justify-center transition-colors shrink-0"><ArrowRight className="w-4 h-4" /></span></div>
                   </Link>
                 </motion.div>
               ))}
             </div>
-            <p className="text-xs text-slate-400 mt-5">Os cases e indicadores desta página são cenários ilustrativos, criados para demonstrar possibilidades de aplicação.</p>
+            <p className="text-xs text-slate-400 mt-5">Projetos de hackathon: os reconhecimentos apresentados são das competições. A evolução dos produtos é descrita em cada case.</p>
           </div>
         </section>
 
